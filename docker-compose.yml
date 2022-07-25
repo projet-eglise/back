@@ -1,0 +1,40 @@
+version: "3"
+services:
+    devapp:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        working_dir: /var/www/
+        container_name: projet-eglise
+        volumes:
+            - ./app:/var/www
+        environment:
+            APP_ENV: local
+    db:
+      platform: linux/x86_64
+      image: mysql:8
+      restart: always
+      container_name: projet-eglise-db
+      environment:
+        MYSQL_DATABASE: projet-eglise
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: password
+      ports:
+        - '3306:3306'
+      expose:
+        - '3306'
+      volumes:
+        - ./db:/var/lib/mysql
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      restart: always
+      container_name: projet-eglise-pma
+      environment:
+        PMA_HOST: projet-eglise-db
+        PMA_USER: root
+        PMA_PASSWORD: password
+      ports:
+        - "81:80"
