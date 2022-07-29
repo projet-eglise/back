@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Authentication\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,3 +11,4 @@ use Illuminate\Support\Facades\Route;
 | This module allows you to manage the users of the application.
 |
 */
+Route::post('authentication/login', LoginController::class);
