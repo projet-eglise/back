@@ -15,9 +15,10 @@ class AuthenticationLoginTest extends TestCase
         $this
             ->postJson('/authentication/login', [
                 'email' => 'timothe@projet-eglise.fr',
-                'password' => 'root',
+                'password' => 'password',
             ])
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertJsonStructure(['token']);
     }
 
     /** @test */
@@ -26,12 +27,12 @@ class AuthenticationLoginTest extends TestCase
         $this
             ->postJson('/authentication/login', [
                 'email' => 'timothe@projet-eglise.fr',
-                'password' => 'rootroot',
+                'password' => 'root',
             ])
             ->assertStatus(401)
             ->assertJson([
                 'code' => 401,
-                'error' => 'Invalid credentials',
+                'message' => 'Invalid credentials',
             ]);
     }
 
@@ -41,12 +42,12 @@ class AuthenticationLoginTest extends TestCase
         $this
             ->postJson('/authentication/login', [
                 'email' => 'timothe@projet-eglise.com',
-                'password' => 'root',
+                'password' => 'password',
             ])
             ->assertStatus(401)
             ->assertJson([
                 'code' => 401,
-                'error' => 'Invalid credentials',
+                'message' => 'Invalid credentials',
             ]);
     }
 }
