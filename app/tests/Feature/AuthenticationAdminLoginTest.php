@@ -29,10 +29,10 @@ class AuthenticationAdminLoginTest extends TestCase
                 'email' => 'timothe@hofmann.fr',
                 'password' => 'password',
             ])
-            ->assertStatus(401)
+            ->assertStatus(403)
             ->assertJson([
-                'code' => 401,
-                'message' => "Your aren't an administrator user",
+                'code' => 403,
+                'message' => "You are not an administrator.",
             ]);
     }
 }

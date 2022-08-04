@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\LoginController;
+use App\Http\Controllers\Authentication\AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,3 +13,4 @@ use App\Http\Controllers\Authentication\LoginController;
 |
 */
 Route::post('authentication/login', LoginController::class);
+Route::post('admin/authentication/login', AdminLoginController::class);

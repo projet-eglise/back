@@ -13,11 +13,17 @@ class User
     public function __construct(
         private Email $email,
         private ?HashedPassword $password = null,
+        private IsAdmin $isAdmin,
     ) {
     }
 
-    public function password()
+    public function passwordMatch(Password $password): bool
     {
-        return $this->password;
+        return $this->password->isSame($password);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin->value();
     }
 }

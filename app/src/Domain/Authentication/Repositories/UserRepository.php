@@ -14,4 +14,5 @@ interface UserRepository
      * @return User|null
      */
     public function findByEmail(Email $email): ?User;
+    public function isAdmin(Email $email): bool;
 }

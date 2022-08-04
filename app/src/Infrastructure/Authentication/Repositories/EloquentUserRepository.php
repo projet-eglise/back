@@ -21,8 +21,7 @@ final class EloquentUserRepository implements UserRepository
     public function isAdmin(Email $email): bool
     {
         $user = ModelUser::where('email', $email->value())->first();
-
-        return false;
+        return ModelAdminUser::where('user_id', $user->id)->first() !== null;
     }
 
     public function modeltoDomain(ModelUser $model): User
@@ -30,7 +29,7 @@ final class EloquentUserRepository implements UserRepository
         return new User(
             new Email($model->email),
             new HashedPassword($model->password),
-            new IsAdmin(false),
+            new IsAdmin($this->isAdmin(new Email($model->email))),
         );
     }
 }
