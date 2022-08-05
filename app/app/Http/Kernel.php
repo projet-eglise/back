@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends HttpKernel
 {
@@ -63,4 +64,28 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    /**
+     * Bootstrap the application for HTTP requests.
+     *
+     * @return void
+     */
+    public function bootstrap()
+    {
+        parent::bootstrap();
+        DB::beginTransaction();
+    }
+
+    /**
+     * Call the terminate method on any terminable middleware.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response  $response
+     * @return void
+     */
+    public function terminate($request, $response)
+    {
+        DB::commit();
+        parent::terminate($request, $response);
+    }
 }

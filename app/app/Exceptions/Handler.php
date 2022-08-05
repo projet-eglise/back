@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +47,20 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Report or log an exception.
+     *
+     * @param  \Throwable  $e
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function report(Throwable $e)
+    {
+        parent::report($e);
+        DB::rollBack();
+        DB::beginTransaction();
     }
 }
