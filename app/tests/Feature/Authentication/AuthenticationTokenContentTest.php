@@ -1,16 +1,12 @@
 <?php
 
-namespace App\BrandPanel\Modules\Store\Tests\Feature;
+namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nette\NotImplementedException;
 use Src\Domain\Authentication\JwtToken;
 use Tests\TestCase;
 
 class AuthenticationTokenLoginTest extends TestCase
 {
-    // use RefreshDatabase;
-
     /** @test */
     public function admin_token_content()
     {

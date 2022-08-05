@@ -1,14 +1,11 @@
 <?php
 
-namespace App\BrandPanel\Modules\Store\Tests\Feature;
+namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthenticationAdminLoginTest extends TestCase
 {
-    // use RefreshDatabase;
-
     /** @test */
     public function login_with_a_valid_admin_credentials()
     {

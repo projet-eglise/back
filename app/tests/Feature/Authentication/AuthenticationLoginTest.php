@@ -1,14 +1,11 @@
 <?php
 
-namespace App\BrandPanel\Modules\Store\Tests\Feature;
+namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthenticationLoginTest extends TestCase
 {
-    // use RefreshDatabase;
-
     /** @test */
     public function login_with_a_valid_password()
     {
