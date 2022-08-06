@@ -21,6 +21,7 @@ class AuthenticationTokenLoginTest extends TestCase
         $token = new JwtToken(json_decode($response->getContent())->token);
 
         $this->assertTrue($token->hasField('isAdmin'));
+        $this->assertTrue($token->hasField('exp'));
         $this->assertTrue($token->hasAFieldThatIs('isAdmin', true));
     }
 
@@ -38,6 +39,7 @@ class AuthenticationTokenLoginTest extends TestCase
         $token = new JwtToken(json_decode($response->getContent())->token);
 
         $this->assertTrue($token->hasField('isAdmin'));
+        $this->assertTrue($token->hasField('exp'));
         $this->assertTrue($token->hasAFieldThatIs('isAdmin', false));
     }
 }

@@ -17,7 +17,32 @@ class JwtToken extends StringValueObject
         if (count($tokenParts) !== 3)
             throw new InvalidTokenException();
 
-        $this->content = json_decode(base64_decode($tokenParts[1]), true);
+        $header = base64_decode($tokenParts[0]);
+        $payload = base64_decode($tokenParts[1]);
+        $signature_provided = $tokenParts[2];
+
+        $expiration = json_decode($payload)->exp;
+        $is_token_expired = ($expiration - time()) < 0;
+
+        $base64_url_header = $this->base64urlEncode($header);
+        $base64_url_payload = $this->base64urlEncode($payload);
+        $signature = hash_hmac('SHA256', $base64_url_header . "." . $base64_url_payload, config('app.key'), true);
+        $base64_url_signature = $this->base64urlEncode($signature);
+
+        // $BlacklistedTokens = TableRegistry::getTableLocator()->get('BlacklistedTokens');
+        // $not_expired = $BlacklistedTokens->findByToken($jwt)->count() === 0;
+        // if ($BlacklistedTokens->findByToken($jwt)->count() !== 0) throw new BadRequestException("Token blacklisté");
+
+        if ($is_token_expired)
+            throw new InvalidTokenException('You are disconnected');
+
+        // if (!$not_expired)
+        //     throw new InvalidTokenException('You have been disconnected, you must reconnect.');
+
+        if (($base64_url_signature !== $signature_provided))
+            throw new InvalidTokenException();
+
+        $this->content = json_decode($payload, true);
     }
 
     /**
@@ -29,11 +54,12 @@ class JwtToken extends StringValueObject
      */
     public static function generate(array $payload = []): string
     {
+        $payload['exp'] = time() + 3600;
         $headers_encoded = self::base64urlEncode(json_encode(['alg' => 'HS256', 'typ' => 'JWT']));
         $payload_encoded = self::base64urlEncode(json_encode($payload));
 
         // TODO Check secrets
-        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", config('APP_KEY'), true);
+        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", config('app.key'), true);
         $signature_encoded = self::base64urlEncode($signature);
 
         return "$headers_encoded.$payload_encoded.$signature_encoded";
@@ -61,7 +87,7 @@ class JwtToken extends StringValueObject
     {
         if (!isset($this->content[$field]))
             return false;
-        
+
         return $this->content[$field] === $value;
     }
 
