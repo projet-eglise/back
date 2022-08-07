@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('authentication_users', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('authentication_admin_users', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('authentication_users');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('authentication_users');
         });
     }
 
@@ -32,5 +33,6 @@ return new class extends Migration
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
         });
+        Schema::dropIfExists('authentication_admin_users');
     }
 };

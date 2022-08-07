@@ -10,18 +10,8 @@ use Src\Infrastructure\Authentication\Controllers\LoginController as Controllers
 class LoginController extends Controller
 {
     public function __construct(
-        private ControllersLoginController $loginController
+        ControllersLoginController $controller
     ) {
-    }
-
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
-    {
-        return Response::json($this->loginController->render($request), 200);
+        parent::__construct($controller);
     }
 }

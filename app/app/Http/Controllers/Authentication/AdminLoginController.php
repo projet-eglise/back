@@ -10,18 +10,8 @@ use Src\Infrastructure\Authentication\Controllers\AdminLoginController as Contro
 class AdminLoginController extends Controller
 {
     public function __construct(
-        private ControllersAdminLoginController $loginController
+        ControllersAdminLoginController $controller
     ) {
-    }
-
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
-    {
-        return Response::json($this->loginController->render($request), 200);
+        parent::__construct($controller);
     }
 }
