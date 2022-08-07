@@ -8,8 +8,11 @@ abstract class HttpException extends Exception
 {
     /** HTTP response code */
     abstract public function code(): int;
-    /** Message to display for the user */
+    /** Information about the context of the error. */
     abstract public function message(): string;
+
+    public function __construct(protected string $error = '')
+    {}
 
     /**
      * Render the exception into an HTTP response.
@@ -21,7 +24,8 @@ abstract class HttpException extends Exception
     {
         return response()->json([
             'code' => $this->code(),
-            'message' => $this->message()
+            'message' => $this->message(),
+            'error' => $this->error,
         ], $this->code());
     }
 }

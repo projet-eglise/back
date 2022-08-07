@@ -9,17 +9,19 @@ use Src\Domain\Shared\Exceptions\HttpException;
  */
 class InvalidEmailException extends HttpException
 {
-    public function __construct(private int $responseCode = 404)
-    {
-    }
-
-    public function message(): string
-    {
-        return "Invalid email";
+    public function __construct(
+        protected string $error = '',
+        private int $responseCode = 404
+    ) {
     }
 
     public function code(): int
     {
         return $this->responseCode;
+    }
+
+    public function message(): string
+    {
+        return "Invalid email";
     }
 }
