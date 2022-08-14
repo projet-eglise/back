@@ -13,13 +13,22 @@ final class EloquentMailHistoryRepository implements MailHistoryRepository
 {
     public function save(MailHistory $mail)
     {
-        $from = ModelFrom::get($mail->fromId());
-        if(is_null($from))
+        $from = ModelFrom::where('id', $mail->fromId())->first();
+        if (is_null($from))
             ModelFrom::create($mail->from());
-        
+
+        $mailHistory = $mail->value();
         ModelMailHistory::create([
             'uuid' => Str::uuid()->toString(),
-            ...$mail->toArray(),
+            'template_id' => $mailHistory['template_id'],
+            'from_id' => $mailHistory['from']['id'],
+            'to_name' => $mailHistory['to']['name'],
+            'to_email' => $mailHistory['to']['email'],
+            'params' => json_encode($mailHistory['params']),
+            'reply_to' => $mailHistory['reply_to'],
+            'sending_time' => $mailHistory['sending_time'],
+            'api_response_code' => $mailHistory['api_response_code'],
+            'api_response_message' => $mailHistory['api_response_message'],
         ]);
     }
 }

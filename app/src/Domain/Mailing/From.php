@@ -7,7 +7,7 @@ abstract class From extends EmailUser
     abstract public function id(): int;
     abstract public function uuid(): string;
 
-    public function toArray(): array
+    public function value(): array
     {
         return [
             'id' => $this->id(),

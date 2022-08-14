@@ -1,7 +1,9 @@
 <?php
 
-namespace Src\Domain\Mailing;
+namespace Src\Domain\Mailing\From;
 
+use Src\Domain\Mailing\From;
+use Src\Domain\Mailing\Name;
 use Src\Domain\Shared\Email;
 
 class PasswordRequestFrom extends From

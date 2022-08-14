@@ -9,7 +9,7 @@ class Timestamp extends IntegerValueObject
 {
     public function __construct(int $value = -1)
     {
-        if ($value === -1) $value = microtime() * 10000;
+        if ($value === -1) $value = microtime(true) * 10000;
 
         if ($value < -1) throw new InvalidTimestampException();
         else parent::__construct($value);

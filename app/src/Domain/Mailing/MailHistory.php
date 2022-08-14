@@ -2,34 +2,41 @@
 
 namespace Src\Domain\Mailing;
 
+use Src\Domain\Mailing\MailHistory\ApiResponseCode;
+use Src\Domain\Mailing\MailHistory\ApiResponseMessage;
 use Src\Domain\Shared\Timestamp;
 
 class MailHistory
 {
     public function __construct(
         private Mail $mail,
+        private ApiResponseCode $code,
+        private ApiResponseMessage $message,
         private Timestamp $timestamp = new Timestamp(),
     ) {
     }
 
-    public function fromId(): array
+    public function fromId(): int
     {
-        return $this->from->id();
+        return $this->from()['id'];
     }
 
     public function from(): array
     {
-        return $this->from->toArray();
+        return $this->mail->from();
     }
 
-    public function toArray(): array
+    public function value(): array
     {
         return [
-            'template_id' => $this->templateId->value(),
-            'to' => $this->to->recipients(),
-            'params' => $this->params->value(),
-            'reply_to' => $this->replyTo->value(),
+            'template_id' => $this->mail->templateId(),
+            'to' => $this->mail->to(),
+            'params' => $this->mail->params(),
+            'reply_to' => $this->mail->replyTo(),
             'sending_time' => $this->timestamp->value(),
+            'from' => $this->from(),
+            'api_response_code' => $this->code->value(),
+            'api_response_message' => $this->message->value(),
         ];
     }
 }

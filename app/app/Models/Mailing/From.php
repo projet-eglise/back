@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class From extends Model
 {
     use HasFactory;
+    
+    protected $guarded = [];  
     protected $table = 'mailing_froms';
 }

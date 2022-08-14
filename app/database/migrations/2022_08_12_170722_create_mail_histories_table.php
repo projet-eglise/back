@@ -24,12 +24,15 @@ return new class extends Migration
         Schema::create('mailing_mail_histories', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->int('template_id');
+            $table->integer('template_id');
             $table->unsignedBigInteger('from_id');
-            $table->json('to');
+            $table->string('to_name');
+            $table->string('to_email');
             $table->json('params');
             $table->string('reply_to');
-            $table->timestamp('sending_time');
+            $table->unsignedBigInteger('sending_time');
+            $table->integer('api_response_code');
+            $table->string('api_response_message');
             $table->timestamps();
             $table->foreign('from_id')->references('id')->on('mailing_froms');
         });
@@ -42,7 +45,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mail_histories');
+        Schema::dropIfExists('mailing_mail_histories');
         Schema::dropIfExists('mailing_froms');
     }
 };

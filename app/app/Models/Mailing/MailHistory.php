@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MailHistory extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];  
     protected $table = 'mailing_mail_histories';
 }
