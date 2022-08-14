@@ -2,6 +2,18 @@
 
 namespace Src\Domain\Mailing;
 
-class From extends EmailUser
+abstract class From extends EmailUser
 {
+    abstract public function id(): int;
+    abstract public function uuid(): string;
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id(),
+            'uuid' => $this->uuid(),
+            'name' => $this->name(),
+            'email' => $this->email(),
+        ];
+    }
 }

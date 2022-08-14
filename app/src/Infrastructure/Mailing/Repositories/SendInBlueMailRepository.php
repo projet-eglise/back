@@ -11,11 +11,21 @@ use SendinBlue\Client\Model\SendSmtpEmail;
 use SendinBlue\Client\Model\SendSmtpEmailReplyTo;
 use SendinBlue\Client\Model\SendSmtpEmailSender;
 use SendinBlue\Client\Model\SendSmtpEmailTo;
+use Src\Domain\Mailing\MailHistory;
 
 final class SendInBlueMailRepository implements MailRepository
 {
+    public function __construct(
+        private EloquentMailHistoryRepository $mailHistoryRepository,
+    ) {
+    }
+
     public function send(Mail $mail)
     {
+        $this->mailHistoryRepository->save(
+            new MailHistory($mail)
+        );
+
         $apiInstance = new TransactionalEmailsApi(
             new Client(),
             Configuration::getDefaultConfiguration()->setApiKey('api-key', ENV('SENDINBLUE')),
