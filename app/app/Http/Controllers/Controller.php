@@ -27,6 +27,10 @@ class Controller extends RoutingController
      */
     public function __invoke(Request $request)
     {
-        return Response::json($this->controller->render($request), 200);
+        return Response::json([
+            'code' => 200,
+            'message' => 'OK',
+            'data' => $this->controller->render($request) ?? [],
+        ], 200);
     }
 }
