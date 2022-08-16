@@ -9,6 +9,7 @@ use Src\Domain\Authentication\HashedPassword;
 use Src\Domain\Authentication\IsAdmin;
 use Src\Domain\Authentication\Repositories\UserRepository;
 use Src\Domain\Shared\Email;
+use Src\Domain\Shared\Uuid;
 
 final class EloquentUserRepository implements UserRepository
 {
@@ -27,6 +28,7 @@ final class EloquentUserRepository implements UserRepository
     public function modeltoDomain(ModelUser $model): User
     {
         return new User(
+            new Uuid($model->uuid),
             new Email($model->email),
             new HashedPassword($model->password),
             new IsAdmin($this->isAdmin(new Email($model->email))),
