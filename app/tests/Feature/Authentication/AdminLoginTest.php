@@ -4,25 +4,29 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
 use Tests\TestCase;
 
-class AuthenticationAdminLoginTest extends TestCase
+class AdminLoginTest extends TestCase
 {
     /** @test */
     public function login_with_a_valid_admin_credentials()
     {
         $this
-            ->postJson('/admin/authentication/login', [
+            ->postJson('/authentication/admin/login', [
                 'email' => 'timothe@projet-eglise.fr',
                 'password' => 'password',
             ])
             ->assertStatus(200)
-            ->assertJsonStructure(['token']);
+            ->assertJsonStructure([
+                'code',
+                'message',
+                'data' => ['token']
+            ]);
     }
 
     /** @test */
     public function login_with_invalid_admin_credentials()
     {
         $this
-            ->postJson('/admin/authentication/login', [
+            ->postJson('/authentication/admin/login', [
                 'email' => 'timothe@hofmann.fr',
                 'password' => 'password',
             ])

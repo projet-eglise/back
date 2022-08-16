@@ -11,7 +11,6 @@ use Src\Domain\Mailing\ReplyTo;
 use Src\Domain\Mailing\TemplateId;
 use Src\Domain\Mailing\To;
 use Src\Domain\Shared\Email;
-use Src\Domain\Shared\EmptyEmail;
 use Src\Infrastructure\Mailing\Params\SendPasswordRequestParams;
 use Src\Infrastructure\Mailing\Repositories\EloquentMailHistoryRepository;
 use Src\Infrastructure\Mailing\Repositories\SendInBlueMailRepository;
