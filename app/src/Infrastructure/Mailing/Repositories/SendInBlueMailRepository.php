@@ -6,6 +6,7 @@ use Exception;
 use Src\Domain\Mailing\Mail;
 use Src\Domain\Mailing\Repositories\MailRepository;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Session;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Model\SendSmtpEmail;
@@ -15,6 +16,7 @@ use SendinBlue\Client\Model\SendSmtpEmailTo;
 use Src\Domain\Mailing\MailHistory;
 use Src\Domain\Mailing\MailHistory\ApiResponseCode;
 use Src\Domain\Mailing\MailHistory\ApiResponseMessage;
+use Src\Domain\Mailing\TemplateId;
 
 final class SendInBlueMailRepository implements MailRepository
 {
@@ -23,12 +25,17 @@ final class SendInBlueMailRepository implements MailRepository
     ) {
     }
 
-    public function send(Mail $mail)
+    private function getSendInBlueInstance(): TransactionalEmailsApi
     {
-        $apiInstance = new TransactionalEmailsApi(
+        return new TransactionalEmailsApi(
             new Client(),
             Configuration::getDefaultConfiguration()->setApiKey('api-key', ENV('SENDINBLUE')),
         );
+    }
+
+    public function send(Mail $mail)
+    {
+        $apiInstance = $this->getSendInBlueInstance();
 
         $from = $mail->from();
         unset($from['id']);
@@ -58,5 +65,24 @@ final class SendInBlueMailRepository implements MailRepository
                 new ApiResponseMessage($message),
             )
         );
+    }
+
+    public function templateName(TemplateId $id): string
+    {
+        $errorTitle = "SendInBlue error";
+        $title = '';
+        $instance = $this->getSendInBlueInstance();
+
+        if (Session::has("SendInBlue.template.{$id->value()}.title"))
+            return Session::get("SendInBlue.template.{$id->value()}.title");
+
+        try {
+            $title = $instance->getSmtpTemplate($id->value())->getSubject();
+        } catch (Exception $e) {
+            $title = $errorTitle;
+        }
+
+        Session::put("SendInBlue.template.{$id->value()}.title", $title);
+        return $title;
     }
 }

@@ -26,8 +26,7 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->integer('template_id');
             $table->unsignedBigInteger('from_id');
-            $table->string('to_name');
-            $table->string('to_email');
+            $table->json('to');
             $table->json('params');
             $table->string('reply_to');
             $table->unsignedBigInteger('sending_time');

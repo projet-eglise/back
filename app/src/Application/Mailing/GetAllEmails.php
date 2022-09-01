@@ -8,6 +8,8 @@ class GetAllEmails
 {
     public function __invoke()
     {
-        return MailHistory::all();
+        return MailHistory::select('*')
+            ->orderByDesc('sending_time')
+            ->get();
     }
 }

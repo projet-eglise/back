@@ -41,9 +41,6 @@ class To
         foreach ($this->recipients as $recipient)
             $result[] = $recipient->value();
 
-        if (count($result) === 1)
-            $result = $result[0];
-
         if (!isset($result))
             throw new EmptyToListException();
 
