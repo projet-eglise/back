@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('token')->unique();
             $table->unsignedBigInteger('expiration');
+            $table->boolean('is_used');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('authentication_users');
         });

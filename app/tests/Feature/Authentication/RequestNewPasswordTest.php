@@ -62,6 +62,7 @@ class RequestNewPasswordTest extends TestCase
             'user_id' => 2,
             'token' => 'taratata',
             'expiration' => Timestamp::now() + 10000,
+            'is_used' => false,
         ]);
 
         $there_are = count(PasswordRequest::all()->toArray());
@@ -100,6 +101,43 @@ class RequestNewPasswordTest extends TestCase
             'user_id' => 2,
             'token' => 'taratata',
             'expiration' => Timestamp::now() - 10000,
+            'is_used' => false,
+        ]);
+
+        $there_are = count(PasswordRequest::all()->toArray());
+
+        $this->getJson('/authentication/reset-password/timothe@projet-eglise.fr')->assertStatus(200);
+
+        $this->assertCount($there_are + 1, PasswordRequest::all()->toArray());
+    }
+
+    /** @test */
+    public function create_a_new_request_if_the_current_one_has_used()
+    {
+        PasswordRequest::create([
+            'uuid' => Str::uuid()->toString(),
+            'user_id' => 2,
+            'token' => 'taratata',
+            'expiration' => Timestamp::now() + 10000,
+            'is_used' => true,
+        ]);
+
+        $there_are = count(PasswordRequest::all()->toArray());
+
+        $this->getJson('/authentication/reset-password/timothe@projet-eglise.fr')->assertStatus(200);
+
+        $this->assertCount($there_are + 1, PasswordRequest::all()->toArray());
+    }
+
+    /** @test */
+    public function returns_a_new_request_if_used()
+    {
+        PasswordRequest::create([
+            'uuid' => Str::uuid()->toString(),
+            'user_id' => 2,
+            'token' => 'taratata',
+            'expiration' => Timestamp::now() + 10000,
+            'is_used' => true,
         ]);
 
         $there_are = count(PasswordRequest::all()->toArray());

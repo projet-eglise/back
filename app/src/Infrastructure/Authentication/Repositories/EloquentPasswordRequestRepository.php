@@ -6,6 +6,7 @@ use App\Models\Authentication\User as ModelUser;
 use App\Models\Authentication\PasswordRequest as ModelPasswordRequest;
 use Src\Domain\Authentication\PasswordRequest;
 use Src\Domain\Authentication\PasswordRequest\Expiration;
+use Src\Domain\Authentication\PasswordRequest\IsUsed;
 use Src\Domain\Authentication\PasswordRequest\Token;
 use Src\Domain\Authentication\PasswordRequest\UserUuid;
 use Src\Domain\Authentication\Repositories\PasswordRequestRepository;
@@ -21,6 +22,7 @@ final class EloquentPasswordRequestRepository implements PasswordRequestReposito
             'token' => $passwordRequest->token(),
             'expiration' => $passwordRequest->expiration(),
             'user_id' => ModelUser::where('uuid', $passwordRequest->userUuid())->first()->id,
+            'is_used' => $passwordRequest->isUsed(),
         ]);
     }
 
@@ -28,6 +30,16 @@ final class EloquentPasswordRequestRepository implements PasswordRequestReposito
     {
         $request = ModelPasswordRequest::where('user_id', ModelUser::where('uuid', $uuid)->first()->id)
             ->where('expiration', '>=', Timestamp::now())
+            ->where('is_used', '=', false)
+            ->limit(1)
+            ->first();
+
+        return is_null($request) ? $request : $this->modeltoDomain($request);
+    }
+
+    public function getRequestByToken(string $token): ?PasswordRequest
+    {
+        $request = ModelPasswordRequest::where('token', $token)
             ->limit(1)
             ->first();
 
@@ -41,6 +53,7 @@ final class EloquentPasswordRequestRepository implements PasswordRequestReposito
             new Token($model->token),
             new UserUuid(ModelUser::where('id', $model->user_id)->first()->uuid),
             new Expiration($model->expiration),
+            new IsUsed($model->is_used),
         );
     }
 }

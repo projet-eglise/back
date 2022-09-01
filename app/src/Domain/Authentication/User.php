@@ -4,6 +4,7 @@ namespace Src\Domain\Authentication;
 
 use Src\Domain\Authentication\PasswordRequest\Expiration;
 use Src\Domain\Authentication\PasswordRequest\Token;
+use Src\Domain\Authentication\PasswordRequest\IsUsed;
 use Src\Domain\Authentication\PasswordRequest\UserUuid;
 use Src\Domain\Shared\Email;
 use Src\Domain\Shared\Uuid;
@@ -43,7 +44,8 @@ class User
             new Uuid(),
             Token::generate($this),
             new UserUuid($this->uuid()),
-            new Expiration(),
+            Expiration::create(),
+            new IsUsed(false),
         );
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Authentication\AdminUser;
+use App\Models\Authentication\PasswordRequest;
 use App\Models\Authentication\User;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
@@ -47,11 +48,47 @@ class DatabaseSeeder extends Seeder
             'uuid' => Str::uuid()->toString(),
             'user_id' => 1,
         ]);
-        
+
         AdminUser::factory()->create([
             'id' => 2,
             'uuid' => Str::uuid()->toString(),
             'user_id' => 2,
+        ]);
+
+        PasswordRequest::create([
+            'id' => 1,
+            'uuid' => Str::uuid()->toString(),
+            'token' => 'aaa',
+            'expiration' => 20000000000000,
+            'user_id' => 1,
+            'is_used' => true,
+        ]);
+
+        PasswordRequest::create([
+            'id' => 2,
+            'uuid' => Str::uuid()->toString(),
+            'token' => 'bbb',
+            'expiration' => 20000000000000,
+            'user_id' => 1,
+            'is_used' => false,
+        ]);
+
+        PasswordRequest::create([
+            'id' => 3,
+            'uuid' => Str::uuid()->toString(),
+            'token' => 'ccc',
+            'expiration' => 16619832000000,
+            'user_id' => 1,
+            'is_used' => false,
+        ]);
+
+        PasswordRequest::create([
+            'id' => 4,
+            'uuid' => Str::uuid()->toString(),
+            'token' => 'ddd',
+            'expiration' => 16619832000000,
+            'user_id' => 1,
+            'is_used' => true,
         ]);
 
         From::factory()->create([
@@ -62,7 +99,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         MailHistory::factory()->create([
-            'id' => 1,            
+            'id' => 1,
             'template_id' => 1,
             'from_id' => 1,
             'to' => '[ { "name": "", "email": "timothe@projet-eglise.fr" } ]',
@@ -74,7 +111,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         MailHistory::factory()->create([
-            'id' => 2,            
+            'id' => 2,
             'template_id' => 1,
             'from_id' => 1,
             'to' => '[ { "name": "", "email": "florence@projet-eglise.fr" } ]',

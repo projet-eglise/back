@@ -10,7 +10,7 @@ use Src\Application\Authentication\GeneratePasswordRequest;
 use Src\Domain\Shared\Email;
 use Src\Infrastructure\Shared\Interfaces\Controller;
 
-final class ResetPasswordRequestController implements Controller
+final class CreatePasswordRequestController implements Controller
 {
     public function __construct(
         private GeneratePasswordRequest $GeneratePasswordRequest
