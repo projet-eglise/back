@@ -41,9 +41,12 @@ final class SendInBlueMailRepository implements MailRepository
         unset($from['id']);
         unset($from['uuid']);
 
+        foreach ($mail->to() as $user)
+            $to[] = new SendSmtpEmailTo($user);
+        
         $sendSmtpEmail = new SendSmtpEmail();
         $sendSmtpEmail["sender"] = new SendSmtpEmailSender($from);
-        $sendSmtpEmail["to"] = [new SendSmtpEmailTo($mail->to())];
+        $sendSmtpEmail["to"] = $to ?? [];
         $sendSmtpEmail["templateId"] = $mail->templateId();
         $sendSmtpEmail["params"] = $mail->params();
         $sendSmtpEmail["replyTo"] = new SendSmtpEmailReplyTo(['email' => $mail->replyTo()]);
