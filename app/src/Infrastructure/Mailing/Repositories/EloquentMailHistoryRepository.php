@@ -2,7 +2,6 @@
 
 namespace Src\Infrastructure\Mailing\Repositories;
 
-use Src\Domain\Mailing\Mail;
 use Src\Domain\Mailing\MailHistory;
 use Src\Domain\Mailing\Repositories\MailHistoryRepository;
 use App\Models\Mailing\From as ModelFrom;

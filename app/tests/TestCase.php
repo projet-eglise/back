@@ -15,4 +15,15 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->seed();
     }
+
+    protected function adminToken(string $email = "timothe@projet-eglise.fr", string $password = "password"): string
+    {
+        $response = $this
+            ->postJson('/authentication/admin/login', [
+                'email' => $email,
+                'password' => $password,
+            ]);
+
+        return json_decode($response->getContent())->data->token;
+    }
 }

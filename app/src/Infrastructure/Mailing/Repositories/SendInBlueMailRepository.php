@@ -41,7 +41,9 @@ final class SendInBlueMailRepository implements MailRepository
         $sendSmtpEmail["params"] = $mail->params();
         $sendSmtpEmail["replyTo"] = new SendSmtpEmailReplyTo(['email' => $mail->replyTo()]);
         try {
-            $apiInstance->sendTransacEmail($sendSmtpEmail);
+            if ('PRD' === config('app.env') ?? '')
+                $apiInstance->sendTransacEmail($sendSmtpEmail);
+
             $code = 200;
             $message = 'OK';
         } catch (Exception $e) {

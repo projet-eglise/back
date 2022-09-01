@@ -29,9 +29,6 @@ class AddNewFromTest extends TestCase
     /** @test */
     public function from_correctly_added()
     {
-        $all = ModelFrom::all()->toArray();
-        $this->assertCount(0, $all);
-
         $this->repository->send(
             new Mail(
                 new TemplateId(1),
@@ -49,14 +46,12 @@ class AddNewFromTest extends TestCase
             ),
         );
 
-        $all = ModelFrom::all()->toArray();
-        $this->assertCount(1, $all);
-
         $from = new PasswordRequestFrom();
+        $modelFrom = ModelFrom::where('uuid', $from->uuid())->get()->first();
 
-        $this->assertEquals($from->id(), $all[0]['id']);
-        $this->assertEquals($from->uuid(), $all[0]['uuid']);
-        $this->assertEquals($from->name(), $all[0]['name']);
-        $this->assertEquals($from->email(), $all[0]['email']);
+        $this->assertEquals($from->id(), $modelFrom['id']);
+        $this->assertEquals($from->uuid(), $modelFrom['uuid']);
+        $this->assertEquals($from->name(), $modelFrom['name']);
+        $this->assertEquals($from->email(), $modelFrom['email']);
     }
 }

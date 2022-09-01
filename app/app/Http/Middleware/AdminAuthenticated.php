@@ -19,7 +19,7 @@ class AdminAuthenticated
     {
         $token = new JwtToken(str_replace('Bearer ', '', $request->header('Authorization')));
 
-        if (!$token->hasField('isAdmin') || $token->hasAFieldThatIs('isAdmin', true))
+        if (!$token->hasField('isAdmin') || $token->hasAFieldThatIs('isAdmin', false))
             throw new NotAdminException('You are trying to access an administrator resource.');
 
         return $next($request);
