@@ -6,6 +6,7 @@ use App\Http\Controllers\Authentication\AdminLoginController;
 use App\Http\Controllers\Authentication\CheckPasswordRequestController;
 use App\Http\Controllers\Authentication\CreatePasswordRequestController;
 use App\Http\Controllers\Authentication\ChangePasswordController;
+use App\Http\Controllers\Authentication\SigninController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::get('check-password-request/{token}', CheckPasswordRequestController::cla
 
 Route::post('change-password/{token}', ChangePasswordController::class)
     ->where('token', '^[a-z0-9]*$');
+
+Route::post('signin', SigninController::class);
 
 Route::middleware(['auth'])->group(function () {
 });

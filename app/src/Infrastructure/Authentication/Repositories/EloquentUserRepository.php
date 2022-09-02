@@ -33,6 +33,15 @@ final class EloquentUserRepository implements UserRepository
         return ModelAdminUser::where('user_id', $user->id)->first() !== null;
     }
 
+    public function create(User $user)
+    {
+        ModelUser::create([
+            'uuid' => $user->uuid(),
+            'email' => $user->email(),
+            'password' => $user->password(),
+        ]);
+    }
+
     public function save(User $user)
     {
         $userModel = ModelUser::where('uuid', $user->uuid())->first();
