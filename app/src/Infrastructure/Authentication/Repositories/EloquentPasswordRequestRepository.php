@@ -15,7 +15,7 @@ use Src\Domain\Shared\Uuid;
 
 final class EloquentPasswordRequestRepository implements PasswordRequestRepository
 {
-    public function save(PasswordRequest $passwordRequest)
+    public function create(PasswordRequest $passwordRequest)
     {
         ModelPasswordRequest::create([
             'uuid' => $passwordRequest->uuid(),
@@ -24,6 +24,18 @@ final class EloquentPasswordRequestRepository implements PasswordRequestReposito
             'user_id' => ModelUser::where('uuid', $passwordRequest->userUuid())->first()->id,
             'is_used' => $passwordRequest->isUsed(),
         ]);
+    }
+
+    public function save(PasswordRequest $passwordRequest)
+    {
+        $modelPasswordRequest = ModelPasswordRequest::where('uuid', $passwordRequest->uuid())->first();
+
+        $modelPasswordRequest->token = $passwordRequest->token();
+        $modelPasswordRequest->expiration = $passwordRequest->expiration();
+        $modelPasswordRequest->user_id = ModelUser::where('uuid', $passwordRequest->userUuid())->first()->id;
+        $modelPasswordRequest->is_used = $passwordRequest->isUsed();
+
+        $modelPasswordRequest->save();
     }
 
     public function getExistingRequest(string $uuid): ?PasswordRequest

@@ -23,7 +23,7 @@ class Password extends StringValueObject
      */
     public function isValid()
     {
-        if (!preg_match('^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$^', $this->value))
+        if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $this->value))
             throw new PasswordDoesntContainRequiredCharactersException();
     }
 

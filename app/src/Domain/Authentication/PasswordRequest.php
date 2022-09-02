@@ -49,4 +49,15 @@ class PasswordRequest
     {
         return $this->expiration->value() >= Timestamp::now();
     }
+
+    public function used(): PasswordRequest
+    {
+        return new PasswordRequest(
+            $this->uuid,
+            $this->token,
+            $this->userUuid,
+            $this->expiration,
+            new IsUsed(true),
+        );
+    }
 }

@@ -28,6 +28,16 @@ class User
         return $this->uuid->value();
     }
 
+    public function email(): string
+    {
+        return $this->email->value();
+    }
+
+    public function password(): string
+    {
+        return $this->password->value();
+    }
+
     public function passwordMatch(Password $password): bool
     {
         return $this->password->isSame($password);
@@ -46,6 +56,16 @@ class User
             new UserUuid($this->uuid()),
             Expiration::create(),
             new IsUsed(false),
+        );
+    }
+
+    public function changePassword(Password $password): User
+    {
+        return new User(
+            $this->uuid,
+            $this->email,
+            $password->hash(),
+            $this->isAdmin,
         );
     }
 }

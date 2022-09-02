@@ -10,8 +10,9 @@ use Src\Infrastructure\Authentication\Repositories\EloquentPasswordRequestReposi
 
 class CheckPasswordRequest
 {
-    public function __construct(private EloquentPasswordRequestRepository $repository)
-    {
+    public function __construct(
+        private EloquentPasswordRequestRepository $repository
+    ) {
     }
 
     public function __invoke(Token $token)

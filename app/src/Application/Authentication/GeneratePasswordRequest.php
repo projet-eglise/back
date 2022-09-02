@@ -25,7 +25,7 @@ class GeneratePasswordRequest
         $request = $this->passwordRequestRepository->getExistingRequest($user->uuid());
         if (is_null($request)) {
             $request = $user->generateResetPassword();
-            $this->passwordRequestRepository->save($request);
+            $this->passwordRequestRepository->create($request);
         }
 
         return $request->token();
