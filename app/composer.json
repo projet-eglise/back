@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "brick/phonenumber": "^0.4.0",
+        "filestack/filestack-php": "^1.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/tinker": "^2.7",

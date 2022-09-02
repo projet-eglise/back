@@ -2,6 +2,7 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class SigninTest extends TestCase
@@ -15,8 +16,9 @@ class SigninTest extends TestCase
                 'lastname' => 'HOFMANN',
                 'email' => 'fgaconcamoz@gmail.com',
                 'password' => '@Zertyu1p23',
-                'birthdate' => '03-03-1987',
+                'birthdate' => '1987-03-03',
                 'phone_number' => '+33600000000',
+                'profile_picture' => UploadedFile::fake()->image('avatar.jpg'),
             ])
             ->assertStatus(200)
             ->assertJsonStructure([
@@ -47,8 +49,9 @@ class SigninTest extends TestCase
                 'lastname' => 'HOFMANN',
                 'email' => 'florence@projet-eglise.fr',
                 'password' => '@Zertyu1p23aze',
-                'birthdate' => '03-03-1987',
+                'birthdate' => '1987-03-03',
                 'phone_number' => '+33600000000',
+                'profile_picture' => UploadedFile::fake()->image('avatar.jpg'),
             ])
             ->assertStatus(409)
             ->assertJsonStructure([

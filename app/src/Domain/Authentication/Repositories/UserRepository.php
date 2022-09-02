@@ -18,6 +18,6 @@ interface UserRepository
     public function findByEmail(Email $email): ?User;
     public function isAdmin(Email $email): bool;
 
-    public function create(User $user);
+    public function create(User $user): User;
     public function save(User $user);
 }

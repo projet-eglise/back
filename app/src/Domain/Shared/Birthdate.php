@@ -2,7 +2,7 @@
 
 namespace Src\Domain\Shared;
 
-use Exception;
+use Src\Domain\Shared\Exceptions\InvalidBirthdateException;
 use Src\Domain\Shared\ValueObject\StringValueObject;
 
 class Birthdate extends StringValueObject
@@ -15,7 +15,7 @@ class Birthdate extends StringValueObject
 
     public function isValid()
     {
-        // TODO Implement
-        throw new Exception('Not Implemented');
+        if(!preg_match('/^\d{4}-\d{2}-\d{2}$/', $this->value))
+            throw new InvalidBirthdateException();
     }
 }

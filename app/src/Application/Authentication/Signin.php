@@ -17,12 +17,12 @@ class Signin
     ) {
     }
 
-    public function __invoke(Email $email, Password $password)
+    public function __invoke(Email $email, Password $password): User
     {
         if ($this->repository->findByEmail($email) !== null)
             throw new UserAlreadyExistsException();
 
-        $this->repository->create(new User(
+        return $this->repository->create(new User(
             new Uuid(),
             $email,
             $password->hash(),
