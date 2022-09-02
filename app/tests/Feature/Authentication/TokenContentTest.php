@@ -5,22 +5,27 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 use Src\Domain\Authentication\JwtToken;
 use Tests\TestCase;
 
-class AuthenticationTokenLoginTest extends TestCase
+class TokenLoginTest extends TestCase
 {
     /** @test */
     public function admin_token_content()
     {
         $response = $this
-            ->postJson('/admin/authentication/login', [
+            ->postJson('/authentication/admin/login', [
                 'email' => 'timothe@projet-eglise.fr',
                 'password' => 'password',
             ])
             ->assertStatus(200)
-            ->assertJsonStructure(['token']);
+            ->assertJsonStructure([
+                'code',
+                'message',
+                'data' => ['token']
+            ]);
 
-        $token = new JwtToken(json_decode($response->getContent())->token);
+        $token = new JwtToken(json_decode($response->getContent())->data->token);
 
         $this->assertTrue($token->hasField('isAdmin'));
+        $this->assertTrue($token->hasField('exp'));
         $this->assertTrue($token->hasAFieldThatIs('isAdmin', true));
     }
 
@@ -33,11 +38,16 @@ class AuthenticationTokenLoginTest extends TestCase
                 'password' => 'password',
             ])
             ->assertStatus(200)
-            ->assertJsonStructure(['token']);
+            ->assertJsonStructure([
+                'code',
+                'message',
+                'data' => ['token']
+            ]);
 
-        $token = new JwtToken(json_decode($response->getContent())->token);
+        $token = new JwtToken(json_decode($response->getContent())->data->token);
 
         $this->assertTrue($token->hasField('isAdmin'));
+        $this->assertTrue($token->hasField('exp'));
         $this->assertTrue($token->hasAFieldThatIs('isAdmin', false));
     }
 }

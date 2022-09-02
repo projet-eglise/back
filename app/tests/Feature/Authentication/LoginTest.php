@@ -4,7 +4,7 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
 use Tests\TestCase;
 
-class AuthenticationLoginTest extends TestCase
+class LoginTest extends TestCase
 {
     /** @test */
     public function login_with_a_valid_password()
@@ -15,7 +15,11 @@ class AuthenticationLoginTest extends TestCase
                 'password' => 'password',
             ])
             ->assertStatus(200)
-            ->assertJsonStructure(['token']);
+            ->assertJsonStructure([
+                'code',
+                'message',
+                'data' => ['token']
+            ]);
     }
 
     /** @test */

@@ -16,14 +16,14 @@ use Src\Domain\Shared\Email;
 
 final class LoginController implements Controller
 {
-    public function __construct(private EloquentUserRepository $repository)
-    {
+    public function __construct(
+        private CheckCredentials $CheckCredentials,
+    ) {
     }
 
     public function render(Request $request)
     {
-        $checkCredentials = new CheckCredentials($this->repository);
-        $checkCredentials->__invoke(
+        $this->CheckCredentials->__invoke(
             new Email($request->input('email')),
             new Password($request->input('password'), false),
         );

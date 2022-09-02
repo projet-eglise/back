@@ -2,7 +2,12 @@
 
 namespace Src\Domain\Authentication;
 
+use Src\Domain\Authentication\PasswordRequest\Expiration;
+use Src\Domain\Authentication\PasswordRequest\Token;
+use Src\Domain\Authentication\PasswordRequest\IsUsed;
+use Src\Domain\Authentication\PasswordRequest\UserUuid;
 use Src\Domain\Shared\Email;
+use Src\Domain\Shared\Uuid;
 
 /**
  * User of the application.
@@ -11,10 +16,26 @@ use Src\Domain\Shared\Email;
 class User
 {
     public function __construct(
+        private Uuid $uuid,
         private Email $email,
         private ?HashedPassword $password = null,
         private IsAdmin $isAdmin,
     ) {
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid->value();
+    }
+
+    public function email(): string
+    {
+        return $this->email->value();
+    }
+
+    public function password(): string
+    {
+        return $this->password->value();
     }
 
     public function passwordMatch(Password $password): bool
@@ -25,5 +46,26 @@ class User
     public function isAdmin(): bool
     {
         return $this->isAdmin->value();
+    }
+
+    public function generateResetPassword(): PasswordRequest
+    {
+        return new PasswordRequest(
+            new Uuid(),
+            Token::generate($this),
+            new UserUuid($this->uuid()),
+            Expiration::create(),
+            new IsUsed(false),
+        );
+    }
+
+    public function changePassword(Password $password): User
+    {
+        return new User(
+            $this->uuid,
+            $this->email,
+            $password->hash(),
+            $this->isAdmin,
+        );
     }
 }
