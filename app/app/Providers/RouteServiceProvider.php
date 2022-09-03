@@ -34,6 +34,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api/authentication.php'));
 
             Route::middleware('api')
+                ->prefix('church-human-ressources')
+                ->group(base_path('routes/api/church_human_ressources.php'));
+
+            Route::middleware('api')
                 ->prefix('mailing')
                 ->group(base_path('routes/api/mailing.php'));
         });

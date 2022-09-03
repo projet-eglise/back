@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Authentication\AdminUser;
 use App\Models\Authentication\PasswordRequest;
 use App\Models\Authentication\User;
+use App\Models\ChurchHumanRessources\Christian;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Database\Seeder;
@@ -22,25 +23,58 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $uuid = Str::uuid()->toString();
         User::factory()->create([
             'id' => 1,
-            'uuid' => Str::uuid()->toString(),
+            'uuid' => $uuid,
             'email' => 'florence@projet-eglise.fr',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ]);
+        Christian::factory()->create([
+            'id' => 1,
+            'uuid' => $uuid,
+            'firstname' => 'Florence',
+            'lastname' => 'HOFMANN',
+            'email' => 'florence@projet-eglise.fr',
+            'phone' => '+33 6 00 00 00 00',
+            'birthdate' => '1987-01-01',
+            'profile_picture' => '',
+        ]);
 
+        $uuid = Str::uuid()->toString();
         User::factory()->create([
             'id' => 2,
-            'uuid' => Str::uuid()->toString(),
+            'uuid' => $uuid,
             'email' => 'timothe@projet-eglise.fr',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ]);
+        Christian::factory()->create([
+            'id' => 2,
+            'uuid' => $uuid,
+            'firstname' => 'Timothé',
+            'lastname' => 'HOFMANN',
+            'email' => 'timothe@projet-eglise.fr',
+            'phone' => '+33 7 00 00 00 00',
+            'birthdate' => '2001-01-01',
+            'profile_picture' => '',
+        ]);
 
+        $uuid = Str::uuid()->toString();
         User::factory()->create([
             'id' => 3,
-            'uuid' => Str::uuid()->toString(),
+            'uuid' => $uuid,
             'email' => 'timothe@hofmann.fr',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ]);
+        Christian::factory()->create([
+            'id' => 3,
+            'uuid' => $uuid,
+            'firstname' => 'Timothé',
+            'lastname' => 'HOFMANN',
+            'email' => 'timothe@hofmann.fr',
+            'phone' => '+33 7 00 00 00 00',
+            'birthdate' => '2011-11-11',
+            'profile_picture' => '',
         ]);
 
         AdminUser::factory()->create([
