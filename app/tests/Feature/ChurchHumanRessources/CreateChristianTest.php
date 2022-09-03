@@ -20,7 +20,7 @@ class CreateChristianTest extends TestCase
                 'email' => 'fgaconcamoz@gmail.com',
                 'password' => '@Zertyu1p23',
                 'birthdate' => '1987-03-03',
-                'phone_number' => '+33600000000',
+                'phone' => '+33600000000',
                 'profile_picture' => UploadedFile::fake()->image('avatar.jpg'),
             ])
             ->assertStatus(200)

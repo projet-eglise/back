@@ -17,7 +17,7 @@ class SigninTest extends TestCase
                 'email' => 'fgaconcamoz@gmail.com',
                 'password' => '@Zertyu1p23',
                 'birthdate' => '1987-03-03',
-                'phone_number' => '+33600000000',
+                'phone' => '+33600000000',
                 'profile_picture' => UploadedFile::fake()->image('avatar.jpg'),
             ])
             ->assertStatus(200)
@@ -50,7 +50,7 @@ class SigninTest extends TestCase
                 'email' => 'florence@projet-eglise.fr',
                 'password' => '@Zertyu1p23aze',
                 'birthdate' => '1987-03-03',
-                'phone_number' => '+33600000000',
+                'phone' => '+33600000000',
                 'profile_picture' => UploadedFile::fake()->image('avatar.jpg'),
             ])
             ->assertStatus(409)

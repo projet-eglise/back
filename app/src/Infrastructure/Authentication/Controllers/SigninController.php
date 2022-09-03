@@ -34,7 +34,7 @@ final class SigninController implements Controller
             $request->input('firstname'),
             $request->input('lastname'),
             $request->input('email'),
-            $request->input('phone_number'),
+            $request->input('phone'),
             $request->input('birthdate'),
             $request->hasFile('profile_picture') ?
                 HasProfilePicture::dispatch(
