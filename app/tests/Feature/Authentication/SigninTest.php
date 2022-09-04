@@ -40,6 +40,38 @@ class SigninTest extends TestCase
             ]);
     }
 
+        /** @test */
+        public function user_signin_without_profile_picture()
+        {
+            $this
+                ->postJson('/authentication/signin', [
+                    'firstname' => 'Florence',
+                    'lastname' => 'HOFMANN',
+                    'email' => 'fgaconcamoz@gmail.com',
+                    'password' => '@Zertyu1p23',
+                    'birthdate' => '1987-03-03',
+                    'phone' => '+33600000000',
+                ])
+                ->assertStatus(200)
+                ->assertJsonStructure([
+                    'code',
+                    'message',
+                    'data' => ['token']
+                ]);
+    
+            $this
+                ->postJson('/authentication/login', [
+                    'email' => 'fgaconcamoz@gmail.com',
+                    'password' => '@Zertyu1p23',
+                ])
+                ->assertStatus(200)
+                ->assertJsonStructure([
+                    'code',
+                    'message',
+                    'data' => ['token']
+                ]);
+        }
+
     /** @test */
     public function user_already_exists()
     {
