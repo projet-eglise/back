@@ -8,6 +8,7 @@ use App\Models\Authentication\AdminUser;
 use App\Models\Authentication\PasswordRequest;
 use App\Models\Authentication\User;
 use App\Models\ChurchHumanRessources\Christian;
+use App\Models\ChurchHumanRessources\Church;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Database\Seeder;
@@ -154,6 +155,17 @@ class DatabaseSeeder extends Seeder
             'sending_time' => Timestamp::now(),
             'api_response_code' => 200,
             'api_response_message' => 'OK',
+        ]);
+
+        Church::create([
+            'id' => 1,
+            'uuid' => Str::uuid()->toString(),
+            'name' => 'Eglise du Drapeau',
+            'address' => '111 avenue du Drapeau',
+            'postal_code' => '21000',
+            'city' => 'Dijon',
+            'pastor_id' => 2,
+            'main_administrator_id' => 1,
         ]);
     }
 }
