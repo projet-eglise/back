@@ -26,4 +26,15 @@ abstract class TestCase extends BaseTestCase
 
         return json_decode($response->getContent())->data->token;
     }
+
+    protected function userToken(string $email = "timothe@projet-eglise.fr", string $password = "password"): string
+    {
+        $response = $this
+            ->postJson('/authentication/login', [
+                'email' => $email,
+                'password' => $password,
+            ]);
+
+        return json_decode($response->getContent())->data->token;
+    }
 }

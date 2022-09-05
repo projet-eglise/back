@@ -41,4 +41,31 @@ class ChurchesOverviewTest extends TestCase
 
         $this->assertCount(count(Church::all()->toArray()), $content['data']);
     }
+
+    /** @test */
+    public function retrieve_joinable_churches()
+    {
+        $response = $this
+            ->getJson('/church-human-ressources/churches/joinable', ['Authorization' => "Bearer {$this->userToken('florence@projet-eglise.fr')}"])
+            ->dump()
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'code',
+                'message',
+                'data' => [
+                    [
+                        'name',
+                        'pastor' => [
+                            'firstname',
+                            'lastname',
+                        ],
+                        'joinable',
+                    ]
+                ]
+            ]);
+
+        $content = json_decode($response->getContent(), true);
+
+        $this->assertCount(count(Church::all()->toArray()), $content['data']);
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\Authentication\PasswordRequest;
 use App\Models\Authentication\User;
 use App\Models\ChurchHumanRessources\Christian;
 use App\Models\ChurchHumanRessources\Church;
+use App\Models\ChurchHumanRessources\Member;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Database\Seeder;
@@ -166,6 +167,45 @@ class DatabaseSeeder extends Seeder
             'city' => 'Dijon',
             'pastor_id' => 2,
             'main_administrator_id' => 1,
+        ]);
+
+        Church::create([
+            'id' => 2,
+            'uuid' => Str::uuid()->toString(),
+            'name' => 'Eglise de Timothé',
+            'address' => '111 avenue du Drapeau (chez Timothé)',
+            'postal_code' => '21000',
+            'city' => 'Dijon',
+            'pastor_id' => 2,
+            'main_administrator_id' => 2,
+        ]);
+
+        Member::create([
+            'id' => 1,
+            'uuid' => Str::uuid()->toString(),
+            'christian_id' => 1,
+            'church_id' => 1,
+        ]);
+        
+        Member::create([
+            'id' => 2,
+            'uuid' => Str::uuid()->toString(),
+            'christian_id' => 2,
+            'church_id' => 1,
+        ]);
+        
+        Member::create([
+            'id' => 3,
+            'uuid' => Str::uuid()->toString(),
+            'christian_id' => 3,
+            'church_id' => 1,
+        ]);
+        
+        Member::create([
+            'id' => 4,
+            'uuid' => Str::uuid()->toString(),
+            'christian_id' => 2,
+            'church_id' => 2,
         ]);
     }
 }

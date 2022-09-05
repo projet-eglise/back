@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChurchHumanRessources\AllChristiansController;
 use App\Http\Controllers\ChurchHumanRessources\AllChurchesController;
+use App\Http\Controllers\ChurchHumanRessources\ChurchesJoinableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('churches/joinable', ChurchesJoinableController::class);
+});
+
+Route::middleware(['auth.admin'])->group(function () {
     Route::get('christians/all', AllChristiansController::class);
     Route::get('churches/all', AllChurchesController::class);
 });
