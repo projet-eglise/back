@@ -25,10 +25,12 @@ class ChurchesOverviewTest extends TestCase
                         'pastor' => [
                             'firstname',
                             'lastname',
+                            'fullname',
                         ],
                         'main_administrator' => [
                             'firstname',
                             'lastname',
+                            'fullname',
                         ],
                         'address',
                         'postal_code',
@@ -47,17 +49,18 @@ class ChurchesOverviewTest extends TestCase
     {
         $response = $this
             ->getJson('/church-human-ressources/churches/joinable', ['Authorization' => "Bearer {$this->userToken('florence@projet-eglise.fr')}"])
-            ->dump()
             ->assertStatus(200)
             ->assertJsonStructure([
                 'code',
                 'message',
                 'data' => [
                     [
+                        'uuid',
                         'name',
                         'pastor' => [
                             'firstname',
                             'lastname',
+                            'fullname',
                         ],
                         'joinable',
                     ]

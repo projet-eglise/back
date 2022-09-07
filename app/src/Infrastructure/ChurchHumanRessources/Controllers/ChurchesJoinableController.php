@@ -25,7 +25,7 @@ final class ChurchesJoinableController implements Controller
         foreach ($myChurches as $church)
             $ids[] = $church->church_id;
         
-        foreach (Church::all() as $church) {
+        foreach (Church::select('*')->orderBy('city')->get() as $church) {
             $church->joinable = !in_array($church->id, $ids);
             $churches[] = $church;
         }

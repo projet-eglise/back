@@ -19,10 +19,12 @@ class Church extends JsonResource
             'pastor' => [
                 'firstname' => $this->pastor()->firstname,
                 'lastname' => $this->pastor()->lastname,
+                'fullname' => "{$this->pastor()->firstname} {$this->pastor()->lastname}",
             ],
             'main_administrator' => [
                 'firstname' => $this->main_administrator()->firstname,
                 'lastname' => $this->main_administrator()->lastname,
+                'fullname' => "{$this->main_administrator()->firstname} {$this->main_administrator()->lastname}",
             ],
             'address' => $this->address,
             'postal_code' => $this->postal_code,
