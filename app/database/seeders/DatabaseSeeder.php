@@ -10,6 +10,8 @@ use App\Models\Authentication\User;
 use App\Models\ChurchHumanRessources\Christian;
 use App\Models\ChurchHumanRessources\Church;
 use App\Models\ChurchHumanRessources\Member;
+use App\Models\ChurchHumanRessources\Role;
+use App\Models\ChurchHumanRessources\Service;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Database\Seeder;
@@ -206,6 +208,20 @@ class DatabaseSeeder extends Seeder
             'uuid' => Str::uuid()->toString(),
             'christian_id' => 2,
             'church_id' => 2,
+        ]);
+
+        Service::create([
+            'id' => 1,
+            'uuid' => Str::uuid()->toString(),
+            'name' => 'Louange',
+        ]);
+
+        Role::create([
+            'id' => 1,
+            'uuid' => Str::uuid()->toString(),
+            'name' => 'Musicien',
+            'options' => '[ { "uuid": "7670dd4c-1e89-4b74-b87f-d29605a003d5", "name": "Guitare" }, { "uuid": "df44a391-c26f-49cb-9a82-e7c5ba405ae4", "name": "Piano" }, { "uuid": "31d09286-864a-4483-acaa-a0815de17976", "name": "Violon" } ]',
+            'service_id' => 1,
         ]);
     }
 }
