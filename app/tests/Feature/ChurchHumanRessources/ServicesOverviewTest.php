@@ -9,13 +9,13 @@ use Tests\TestCase;
 
 class ServicesOverviewTest extends TestCase
 {
-    const EMAIL = 'timothe@projet-eglise.fr';
+    const EMAIL = 'timothe@hofmann.fr';
 
     /** @test */
     public function retrieve_all_data()
     {
         $response = $this
-            ->getJson('/church-human-ressources/services-with-roles-and-options', ['Authorization' => "Bearer {$this->adminToken()}"])
+            ->getJson('/church-human-ressources/services-with-roles-and-options', ['Authorization' => "Bearer {$this->userToken()}"])
             ->assertStatus(200)
             ->assertJsonStructure([
                 'code',
