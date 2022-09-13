@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\AdminLoginController;
+use App\Http\Controllers\Authentication\BecomeAGhostController;
 use App\Http\Controllers\Authentication\CheckPasswordRequestController;
 use App\Http\Controllers\Authentication\CreatePasswordRequestController;
 use App\Http\Controllers\Authentication\ChangePasswordController;
@@ -32,5 +33,7 @@ Route::post('change-password/{token}', ChangePasswordController::class)
 
 Route::post('signin', SigninController::class);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth.admin'])->group(function () {
+    Route::get('become-a-ghost/{email}', BecomeAGhostController::class)
+        ->where('email', '([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})');
 });
