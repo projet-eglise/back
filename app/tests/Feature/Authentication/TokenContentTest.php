@@ -26,6 +26,7 @@ class TokenLoginTest extends TestCase
 
         $this->assertTrue($token->hasField('isAdmin'));
         $this->assertTrue($token->hasField('exp'));
+        $this->assertTrue($token->hasField('uuid'));
         $this->assertTrue($token->hasAFieldThatIs('isAdmin', true));
     }
 
@@ -48,6 +49,7 @@ class TokenLoginTest extends TestCase
 
         $this->assertTrue($token->hasField('isAdmin'));
         $this->assertTrue($token->hasField('exp'));
+        $this->assertTrue($token->hasField('uuid'));
         $this->assertTrue($token->hasAFieldThatIs('isAdmin', false));
     }
 }

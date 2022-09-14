@@ -6,6 +6,8 @@ namespace Src\Infrastructure\Authentication\Controllers;
 
 use Illuminate\Http\Request;
 use Src\Application\Authentication\CheckIfUserExists;
+use Src\Application\Authentication\GenerateJwt;
+use Src\Domain\Authentication\IsAdmin;
 use Src\Domain\Authentication\JwtToken;
 use Src\Infrastructure\Shared\Interfaces\Controller;
 use Src\Domain\Shared\Email;
@@ -13,7 +15,8 @@ use Src\Domain\Shared\Email;
 final class BecomeAGhostController implements Controller
 {
     public function __construct(
-        private CheckIfUserExists $CheckIfUserExists
+        private CheckIfUserExists $CheckIfUserExists,
+        private GenerateJwt $GenerateJwt,
     ) {
     }
 
@@ -24,9 +27,7 @@ final class BecomeAGhostController implements Controller
         );
 
         return [
-            'token' => JwtToken::generate([
-                'isAdmin' => false,
-            ])
+            'token' => $this->GenerateJwt->__invoke(new Email($request->route()->parameter('email')), new IsAdmin(false)),
         ];
     }
 }

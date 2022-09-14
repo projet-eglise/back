@@ -7,6 +7,8 @@ namespace Src\Infrastructure\Authentication\Controllers;
 use Illuminate\Http\Request;
 use Src\Application\Authentication\CheckCredentials;
 use Src\Application\Authentication\CheckIfIsAdmin;
+use Src\Application\Authentication\GenerateJwt;
+use Src\Domain\Authentication\IsAdmin;
 use Src\Domain\Authentication\JwtToken;
 use Src\Domain\Authentication\Password;
 use Src\Infrastructure\Shared\Interfaces\Controller;
@@ -16,7 +18,8 @@ final class AdminLoginController implements Controller
 {
     public function __construct(
         private CheckCredentials $CheckCredentials,
-        private CheckIfIsAdmin $CheckIfIsAdmin
+        private CheckIfIsAdmin $CheckIfIsAdmin,
+        private GenerateJwt $GenerateJwt,
     ) {
     }
 
@@ -32,9 +35,7 @@ final class AdminLoginController implements Controller
         );
 
         return [
-            'token' => JwtToken::generate([
-                'isAdmin' => true,
-            ])
+            'token' => $this->GenerateJwt->__invoke(new Email($request->input('email')), new IsAdmin(true)),
         ];
     }
 }

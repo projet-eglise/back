@@ -7,18 +7,18 @@ namespace Src\Infrastructure\Authentication\Controllers;
 use Illuminate\Http\Request;
 use Src\Application\Authentication\Events\HasProfilePicture;
 use Src\Application\Authentication\Events\UserCreated;
+use Src\Application\Authentication\GenerateJwt;
 use Src\Application\Authentication\Signin;
-use Src\Domain\Authentication\JwtToken;
+use Src\Domain\Authentication\IsAdmin;
 use Src\Domain\Authentication\Password;
-use Src\Domain\Authentication\User;
 use Src\Infrastructure\Shared\Interfaces\Controller;
-use Src\Infrastructure\Authentication\Repositories\EloquentUserRepository;
 use Src\Domain\Shared\Email;
 
 final class SigninController implements Controller
 {
     public function __construct(
         private Signin $Signin,
+        private GenerateJwt $GenerateJwt,
     ) {
     }
 
@@ -43,9 +43,7 @@ final class SigninController implements Controller
         );
 
         return [
-            'token' => JwtToken::generate([
-                'isAdmin' => false,
-            ])
+            'token' => $this->GenerateJwt->__invoke(new Email($request->input('email')), new IsAdmin(false)),
         ];
     }
 }
