@@ -22,6 +22,10 @@ abstract class HttpException extends Exception
      */
     public function render($request)
     {
+        $request->error['code'] = $this->code();
+        $request->error['message'] = $this->message();
+        $request->error['error'] = $this->error;
+
         return response()->json([
             'code' => $this->code(),
             'message' => $this->message(),

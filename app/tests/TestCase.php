@@ -5,6 +5,8 @@ namespace Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
+define('LARAVEL_START', microtime(true));
+
 abstract class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
