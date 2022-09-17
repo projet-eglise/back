@@ -20,6 +20,7 @@ class ChristiansOverviewTest extends TestCase
                 'message',
                 'data' => [
                     [
+                        'uuid',
                         'firstname',
                         'lastname',
                         'email',

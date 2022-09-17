@@ -11,4 +11,9 @@ class Christian extends Model
 
     protected $guarded = []; 
     protected $table = 'chr_christians';
+
+    public function fullname(): string
+    {
+        return "{$this->firstname} {$this->lastname}";
+    }
 }

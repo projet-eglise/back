@@ -15,6 +15,7 @@ class Christian extends JsonResource
     public function toArray($request)
     {
         return [
+            'uuid' => $this->uuid,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'email' => $this->email,

@@ -8,6 +8,7 @@ use App\Models\Logs\Trace;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Http\Testing\File;
 use Illuminate\Support\Facades\DB;
+use Src\Domain\Authentication\JwtToken;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class Kernel extends HttpKernel
@@ -95,7 +96,10 @@ class Kernel extends HttpKernel
             $params = $request->all();
             if (isset($params['password'])) $params['password'] = "********";
             if (isset($params['profile_picture']) && $params['profile_picture'] instanceof File) $params['profile_picture'] = "https://templates.designwizard.com/43cddf10-4af1-11e9-874a-f70add5407e2.jpg";
+            if ($request->hasHeader('Authorization')) $uuid = (new JwtToken(str_replace('Bearer ', '', $request->header('Authorization'))))->getField('uuid');
+            
             $req = Request::create([
+                'user_uuid' => $uuid ?? null,
                 'start' => LARAVEL_START * 10000,
                 'duration' => (microtime(true) - LARAVEL_START) * 1000,
                 'code' => $response->getStatusCode(),
@@ -104,7 +108,6 @@ class Kernel extends HttpKernel
                 'method' => $request->method(),
                 'url' => $request->getRequestUri(),
                 'params' => json_encode($params),
-                'response' => $response->getContent() !== '' ? $response->getContent() : '[]',
                 'error_topic_id' => isset($errorTopic) ? $errorTopic->id : null,
             ]);
 

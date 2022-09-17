@@ -91,6 +91,19 @@ class JwtToken extends StringValueObject
         return $this->content[$field] === $value;
     }
 
+
+    /**
+     * Checks if a field exists in the token.
+     *
+     * @param string $field
+     * @param mixed $value
+     * @return bool
+     */
+    public function getField(string $field)
+    {
+        return $this->content[$field];
+    }
+
     /**
      * Returns the string encoded in base 64.
      *

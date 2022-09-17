@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('logs_requests', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_uuid')->nullable();
             $table->string('start', 14);
             $table->integer('duration');
             $table->string('code', 3);
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->string('method', 7);
             $table->string('url');
             $table->json('params');
-            $table->json('response');
             $table->foreignIdFor(ErrorTopic::class)->nullable();
             $table->timestamps();
         });
