@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class ChurchesOverviewTest extends TestCase
 {
-    const EMAIL = 'timothe@projet-eglise.fr';
-
     /** @test */
     public function retrieve_all_data()
     {

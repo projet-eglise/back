@@ -18,6 +18,7 @@ class Christian extends JsonResource
             'uuid' => $this->uuid,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
+            'fullname' => $this->fullname(),
             'email' => $this->email,
             'phone' => $this->phone,
             'birthdate' => $this->birthdate,

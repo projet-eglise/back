@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class ServicesOverviewTest extends TestCase
 {
-    const EMAIL = 'timothe@hofmann.fr';
-
     /** @test */
     public function retrieve_all_data()
     {

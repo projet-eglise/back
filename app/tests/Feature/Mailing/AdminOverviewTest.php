@@ -7,8 +7,6 @@ use Tests\TestCase;
 
 class AdminOverviewTest extends TestCase
 {
-    const EMAIL = 'timothe@projet-eglise.fr';
-
     /** @test */
     public function retrieve_all_data()
     {
@@ -44,5 +42,38 @@ class AdminOverviewTest extends TestCase
         $content = json_decode($response->getContent(), true);
 
         $this->assertCount(count(ModelMailHistory::all()->toArray()), $content['data']);
+    }
+
+    /** @test */
+    public function retrieve_for_a_christian()
+    {
+        $this
+            ->getJson('/mailing/all-for-user/timothe@projet-eglise.fr', ['Authorization' => "Bearer {$this->adminToken()}"])
+            ->assertStatus(200)
+            ->assertExactJson([
+                'code' => 200,
+                'message' => 'OK',
+                'data' => [
+                    [
+                        'templateAddress' => 'https://my.sendinblue.com/camp/template/1/message-setup',
+                        'subject' => "Réinitialisation de votre mot de passe Projet d'Eglise",
+                        'response' => [
+                            'code' => 404,
+                            'message' => 'Error message',
+                        ],
+                        'from' => [
+                            'name' => "Projet d'Eglise",
+                            'email' => 'password-requests@projet-eglise.fr',
+                        ],
+                        'to' => [
+                            [
+                                'email' => 'florence@projet-eglise.fr',
+                            ]
+                        ],
+                        'params' => '{ "url": "https://localhost:3000/reset-password/token" }',
+                        'sending_time' => 16620268113513,
+                    ]
+                ]
+            ]);
     }
 }

@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\Mailing\AllController;
-use App\Http\Controllers\Mailing\LastController;
-use App\Http\Controllers\Mailing\LastForUserController;
+use App\Http\Controllers\Mailing\AllForUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth.admin'])->group(function () {
     Route::get('all', AllController::class);
-    // Route::get('last', LastController::class);
-    // Route::get('last/{email}', LastForUserController::class)
-    //     ->where('email', '([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})');
+    Route::get('all-for-user', AllForUserController::class)
+        ->where('email', '([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})');
 });

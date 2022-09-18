@@ -20,13 +20,13 @@ class RequestsOverviewTest extends TestCase
                     [
                         'code',
                         'message',
-                        'user' => [
+                        'user'/*  => [
                             'uuid',
                             'firstname',
                             'lastname',
                             'fullname',
                             'profile_picture',
-                        ],
+                        ] */,
                         'ip',
                         'start',
                         'method',

@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
             'profile_picture' => '',
         ]);
 
-        $uuid = Str::uuid()->toString();
+        $uuid = 'b676230c-05c7-4aeb-b30b-9aff6229ba57';
         User::factory()->create([
             'id' => 3,
             'uuid' => $uuid,
@@ -143,7 +143,7 @@ class DatabaseSeeder extends Seeder
             'to' => '[ { "name": "", "email": "timothe@projet-eglise.fr" } ]',
             'params' => '{ "url": "https://localhost:3000/reset-password/token" }',
             'reply_to' => 'password-requests@projet-eglise.fr',
-            'sending_time' => Timestamp::now(),
+            'sending_time' => 16620268113513,
             'api_response_code' => 404,
             'api_response_message' => 'Error message',
         ]);
