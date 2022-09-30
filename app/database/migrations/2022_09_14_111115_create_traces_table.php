@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Logs\Request;
+use App\Models\Logs\ErrorTopic;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('file');
             $table->integer('line');
             $table->string('function');
-            $table->foreignIdFor(Request::class);
+            $table->foreignIdFor(ErrorTopic::class);
             $table->timestamps();
         });
     }

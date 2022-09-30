@@ -16,11 +16,14 @@ return new class extends Migration
     {
         Schema::create('logs_error_topics', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->integer('code');
             $table->string('message');
             $table->string('error');
             $table->string('file');
             $table->integer('line');
+            $table->boolean('seen');
+            $table->boolean('known');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Models\Logs\Trace;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Http\Testing\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Src\Domain\Authentication\JwtToken;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
@@ -83,22 +84,40 @@ class Kernel extends HttpKernel
                     ->where('file', $request->error['file'])
                     ->where('line', $request->error['line'])->first();
 
+                $saveTraces = $errorTopic === null; // true if the topic doesn't exists
                 if ($errorTopic === null)
-                    $errorTopic = ErrorTopic::create([
+                    $errorTopic = new ErrorTopic([
+                        'uuid' => Str::uuid()->toString(),
                         'code' => $request->error['code'],
                         'message' => $request->error['message'],
                         'error' => $request->error['error'],
                         'file' => $request->error['file'],
                         'line' => $request->error['line'],
+                        'known' => $request->error['known'],
+                        'seen' => $request->error['seen'],
                     ]);
+                else
+                    $errorTopic->seen = false;
+
+                $errorTopic->save();
+
+
+                if (isset($request->error) && $saveTraces)
+                    foreach ($request->error['traces'] as $trace)
+                        Trace::create([
+                            'file' => str_replace('/var/www/', '', $trace['file']),
+                            'line' => $trace['line'],
+                            'function' => $trace['function'],
+                            'error_topic_id' => $errorTopic->id,
+                        ]);
             }
 
             $params = $request->all();
             if (isset($params['password'])) $params['password'] = "********";
             if (isset($params['profile_picture']) && $params['profile_picture'] instanceof File) $params['profile_picture'] = "https://templates.designwizard.com/43cddf10-4af1-11e9-874a-f70add5407e2.jpg";
             if ($request->hasHeader('Authorization')) $uuid = (new JwtToken(str_replace('Bearer ', '', $request->header('Authorization'))))->getField('uuid');
-            
-            $req = Request::create([
+
+            Request::create([
                 'user_uuid' => $uuid ?? null,
                 'start' => LARAVEL_START * 10000,
                 'duration' => (microtime(true) - LARAVEL_START) * 1000,
@@ -110,15 +129,6 @@ class Kernel extends HttpKernel
                 'params' => json_encode($params),
                 'error_topic_id' => isset($errorTopic) ? $errorTopic->id : null,
             ]);
-
-            if (isset($request->error))
-                foreach ($request->error['traces'] as $trace)
-                    Trace::create([
-                        'file' => $trace['file'],
-                        'line' => $trace['line'],
-                        'function' => $trace['function'],
-                        'request_id' => $req->id,
-                    ]);
         }
 
         DB::commit();

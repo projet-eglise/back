@@ -12,6 +12,7 @@ use App\Models\ChurchHumanRessources\Church;
 use App\Models\ChurchHumanRessources\Member;
 use App\Models\ChurchHumanRessources\Role;
 use App\Models\ChurchHumanRessources\Service;
+use App\Models\Logs\ErrorTopic;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Database\Seeder;
@@ -188,21 +189,21 @@ class DatabaseSeeder extends Seeder
             'christian_id' => 1,
             'church_id' => 1,
         ]);
-        
+
         Member::create([
             'id' => 2,
             'uuid' => Str::uuid()->toString(),
             'christian_id' => 2,
             'church_id' => 1,
         ]);
-        
+
         Member::create([
             'id' => 3,
             'uuid' => Str::uuid()->toString(),
             'christian_id' => 3,
             'church_id' => 1,
         ]);
-        
+
         Member::create([
             'id' => 4,
             'uuid' => Str::uuid()->toString(),
@@ -222,6 +223,42 @@ class DatabaseSeeder extends Seeder
             'name' => 'Musicien',
             'options' => '[ { "uuid": "7670dd4c-1e89-4b74-b87f-d29605a003d5", "name": "Guitare" }, { "uuid": "df44a391-c26f-49cb-9a82-e7c5ba405ae4", "name": "Piano" }, { "uuid": "31d09286-864a-4483-acaa-a0815de17976", "name": "Violon" } ]',
             'service_id' => 1,
+        ]);
+
+        ErrorTopic::create([
+            'id' => 1,
+            'uuid' => '4c9af8c9-949f-4ba3-8337-9136232616a4',
+            'code' => 401,
+            'message' => 'Invalid credentials',
+            'error' => '',
+            'file' => 'src/Application/Authentication/CheckCredentials.php',
+            'line' => 200,
+            'seen' => false,
+            'known' => true,
+        ]);
+
+        ErrorTopic::create([
+            'id' => 2,
+            'uuid' => '1dc6b226-c041-4889-8c3c-c321fbcf0860',
+            'code' => 401,
+            'message' => 'Invalid credentials',
+            'error' => '',
+            'file' => 'src/Application/Authentication/CheckCredentials.php',
+            'line' => 100,
+            'seen' => true,
+            'known' => true,
+        ]);
+
+        ErrorTopic::create([
+            'id' => 3,
+            'uuid' => 'd016eaba-8ab1-47d1-b116-198f14418b98',
+            'code' => 401,
+            'message' => 'Invalid credentials',
+            'error' => '',
+            'file' => 'src/Application/Authentication/CheckCredentials.php',
+            'line' => 70,
+            'seen' => false,
+            'known' => false,
         ]);
     }
 }

@@ -77,7 +77,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        $request->error = ['file' => $e->getFile(), 'line' => $e->getLine(), 'traces' => $e->getTrace()];
+        $request->error = ['file' => str_replace('/var/www/', '', $e->getFile()), 'line' => $e->getLine(), 'traces' => $e->getTrace(), 'seen' => false];
         if ($e instanceof HttpException)
             return $e->render($request);
         
@@ -86,6 +86,7 @@ class Handler extends ExceptionHandler
         $request->error['code'] = $response->getStatusCode();
         $request->error['message'] = HttpFoundationResponse::$statusTexts[$response->getStatusCode()];
         $request->error['error'] = $e->getMessage();
+        $request->error['known'] = false;
 
         return Response::json([
             'code' => $response->getStatusCode(),
