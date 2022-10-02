@@ -13,6 +13,7 @@ use App\Models\ChurchHumanRessources\Member;
 use App\Models\ChurchHumanRessources\Role;
 use App\Models\ChurchHumanRessources\Service;
 use App\Models\Logs\ErrorTopic;
+use App\Models\Logs\Request;
 use App\Models\Mailing\From;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Database\Seeder;
@@ -235,6 +236,32 @@ class DatabaseSeeder extends Seeder
             'line' => 200,
             'seen' => false,
             'known' => true,
+        ]);
+        Request::create([
+            'id' => 1,
+            'user_uuid' => null,
+            'start' => microtime(true) * 10000,
+            'duration' => (microtime(true) - (microtime(true) - 150)) * 1000,
+            'code' => 401,
+            'message' => 'Unauthorized',
+            'ip' => '0.0.0.0',
+            'method' => 'POST',
+            'url' => 'admin/login',
+            'params' => '{ "email": "user@projet-eglise.fr", "password": "********" }',
+            'error_topic_id' => 1,
+        ]);
+        Request::create([
+            'id' => 2,
+            'user_uuid' => null,
+            'start' => microtime(true) * 10000,
+            'duration' => (microtime(true) - (microtime(true) - 150)) * 1000,
+            'code' => 401,
+            'message' => 'Unauthorized',
+            'ip' => '0.0.0.0',
+            'method' => 'POST',
+            'url' => 'admin/login',
+            'params' => '{ "email": "user@projet-eglise.fr", "password": "********" }',
+            'error_topic_id' => 1,
         ]);
 
         ErrorTopic::create([

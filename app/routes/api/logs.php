@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Logs\AllKnownTopicsController;
 use App\Http\Controllers\Logs\AllRequestsController;
 use App\Http\Controllers\Logs\AllRequestsForUserController;
+use App\Http\Controllers\Logs\AllUnknownTopicsController;
 use App\Http\Controllers\Logs\SeenTopicController;
 use App\Http\Controllers\Logs\UnseenTopicController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +23,7 @@ Route::middleware(['auth.admin'])->group(function () {
     
     Route::get('seen-topic/{uuid}', SeenTopicController::class);
     Route::get('unseen-topic/{uuid}', UnseenTopicController::class);
+    
+    Route::get('topics/known', AllKnownTopicsController::class);
+    Route::get('topics/unknown', AllUnknownTopicsController::class);
 });
