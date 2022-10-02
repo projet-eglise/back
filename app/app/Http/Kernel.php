@@ -76,58 +76,71 @@ class Kernel extends HttpKernel
      */
     public function terminate($request, $response)
     {
-        if ($request->method() !== 'OPTIONS') {
-            if (isset($request->error)) {
-                $errorTopic = ErrorTopic::where('code', $request->error['code'])
-                    ->where('message', $request->error['message'])
-                    ->where('error', $request->error['error'])
-                    ->where('file', $request->error['file'])
-                    ->where('line', $request->error['line'])->first();
+        try {
+            if ($request->method() !== 'OPTIONS') {
+                if (isset($request->error)) {
+                    $errorTopic = ErrorTopic::where('code', $request->error['code'])
+                        ->where('message', $request->error['message'])
+                        ->where('error', $request->error['error'])
+                        ->where('file', $request->error['file'])
+                        ->where('line', $request->error['line'])->first();
 
-                $saveTraces = $errorTopic === null; // true if the topic doesn't exists
-                if ($errorTopic === null)
-                    $errorTopic = new ErrorTopic([
-                        'uuid' => Str::uuid()->toString(),
-                        'code' => $request->error['code'],
-                        'message' => $request->error['message'],
-                        'error' => $request->error['error'],
-                        'file' => $request->error['file'],
-                        'line' => $request->error['line'],
-                        'known' => $request->error['known'],
-                        'seen' => $request->error['seen'],
-                    ]);
-                else
-                    $errorTopic->seen = false;
-
-                $errorTopic->save();
-
-
-                if (isset($request->error) && $saveTraces)
-                    foreach ($request->error['traces'] as $trace)
-                        Trace::create([
-                            'file' => str_replace('/var/www/', '', $trace['file']),
-                            'line' => $trace['line'],
-                            'function' => $trace['function'],
-                            'error_topic_id' => $errorTopic->id,
+                    $saveTraces = $errorTopic === null; // true if the topic doesn't exists
+                    if ($errorTopic === null)
+                        $errorTopic = new ErrorTopic([
+                            'uuid' => Str::uuid()->toString(),
+                            'code' => $request->error['code'],
+                            'message' => $request->error['message'],
+                            'error' => $request->error['error'],
+                            'file' => $request->error['file'],
+                            'line' => $request->error['line'],
+                            'known' => $request->error['known'],
+                            'seen' => $request->error['seen'],
                         ]);
+                    else
+                        $errorTopic->seen = false;
+
+                    $errorTopic->save();
+
+
+                    if (isset($request->error) && $saveTraces)
+                        foreach ($request->error['traces'] as $trace)
+                            Trace::create([
+                                'file' => str_replace('/var/www/', '', $trace['file'] ?? ''),
+                                'line' => $trace['line'],
+                                'function' => $trace['function'],
+                                'error_topic_id' => $errorTopic->id,
+                            ]);
+                }
+
+                $params = $request->all();
+                if (isset($params['password'])) $params['password'] = "********";
+                if (isset($params['profile_picture']) && $params['profile_picture'] instanceof File) $params['profile_picture'] = "https://templates.designwizard.com/43cddf10-4af1-11e9-874a-f70add5407e2.jpg";
+                if ($request->hasHeader('Authorization')) $uuid = (new JwtToken(str_replace('Bearer ', '', $request->header('Authorization'))))->getField('uuid');
+
+                Request::create([
+                    'user_uuid' => $uuid ?? null,
+                    'start' => LARAVEL_START * 10000,
+                    'duration' => (microtime(true) - LARAVEL_START) * 1000,
+                    'code' => $response->getStatusCode(),
+                    'message' => HttpFoundationResponse::$statusTexts[$response->getStatusCode()],
+                    'ip' => $request->ip(),
+                    'method' => $request->method(),
+                    'url' => $request->getRequestUri(),
+                    'params' => json_encode($params),
+                    'error_topic_id' => isset($errorTopic) ? $errorTopic->id : null,
+                ]);
             }
-
-            $params = $request->all();
-            if (isset($params['password'])) $params['password'] = "********";
-            if (isset($params['profile_picture']) && $params['profile_picture'] instanceof File) $params['profile_picture'] = "https://templates.designwizard.com/43cddf10-4af1-11e9-874a-f70add5407e2.jpg";
-            if ($request->hasHeader('Authorization')) $uuid = (new JwtToken(str_replace('Bearer ', '', $request->header('Authorization'))))->getField('uuid');
-
-            Request::create([
-                'user_uuid' => $uuid ?? null,
-                'start' => LARAVEL_START * 10000,
-                'duration' => (microtime(true) - LARAVEL_START) * 1000,
-                'code' => $response->getStatusCode(),
-                'message' => HttpFoundationResponse::$statusTexts[$response->getStatusCode()],
-                'ip' => $request->ip(),
-                'method' => $request->method(),
-                'url' => $request->getRequestUri(),
-                'params' => json_encode($params),
-                'error_topic_id' => isset($errorTopic) ? $errorTopic->id : null,
+        } catch (\Throwable $th) {
+            ErrorTopic::create([
+                'uuid' => Str::uuid()->toString(),
+                'code' => $th->getCode() ?? 0,
+                'message' => $th->getMessage(),
+                'error' => 'Error when save log for error ' . $errorTopic->uuid ?? '{unknow error}',
+                'file' => $th->getFile() ?? '',
+                'line' => $th->getLine() ?? '',
+                'known' => false,
+                'seen' => false,
             ]);
         }
 
