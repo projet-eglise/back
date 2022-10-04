@@ -1,12 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Logs\AllKnownTopicsController;
 use App\Http\Controllers\Logs\AllRequestsController;
 use App\Http\Controllers\Logs\AllRequestsForUserController;
 use App\Http\Controllers\Logs\AllUnknownTopicsController;
 use App\Http\Controllers\Logs\SeenTopicController;
 use App\Http\Controllers\Logs\UnseenTopicController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

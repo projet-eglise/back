@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChurchHumanRessources\AllChristiansController;
 use App\Http\Controllers\ChurchHumanRessources\AllChurchesController;
 use App\Http\Controllers\ChurchHumanRessources\AllServicesController;
 use App\Http\Controllers\ChurchHumanRessources\ChurchesJoinableController;
 use App\Http\Controllers\ChurchHumanRessources\GetChristianController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
