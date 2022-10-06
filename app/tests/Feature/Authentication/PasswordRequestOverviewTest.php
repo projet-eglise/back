@@ -3,9 +3,9 @@
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
 use App\Models\Authentication\PasswordRequest;
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class PasswordRequestOverviewTest extends TestCase
+class PasswordRequestOverviewTest extends AuthenticationTestCase
 {
     /** @test */
     public function retrieve_all_data()

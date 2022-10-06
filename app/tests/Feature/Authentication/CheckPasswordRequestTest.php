@@ -2,14 +2,9 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use App\Models\Authentication\PasswordRequest;
-use App\Models\Mailing\MailHistory;
-use Illuminate\Support\Str;
-use Src\Domain\Authentication\JwtToken;
-use Src\Domain\Shared\Timestamp;
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class CheckPasswordRequestTest extends TestCase
+class CheckPasswordRequestTest extends AuthenticationTestCase
 {
     /** @test */
     public function when_the_request_is_not_expired_and_not_used()

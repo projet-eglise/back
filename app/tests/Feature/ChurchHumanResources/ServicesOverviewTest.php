@@ -2,10 +2,9 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Mailing;
 
-use App\Models\ChurchHumanRessources\Christian;
 use App\Models\ChurchHumanRessources\Role;
 use App\Models\ChurchHumanRessources\Service;
-use Tests\TestCase;
+use Tests\Feature\ChurchHumanResources\TestCase;
 
 class ServicesOverviewTest extends TestCase
 {

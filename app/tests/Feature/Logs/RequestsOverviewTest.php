@@ -3,7 +3,7 @@
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Mailing;
 
 use App\Models\Logs\Request;
-use Tests\TestCase;
+use Tests\Feature\Logs\TestCase;
 
 class RequestsOverviewTest extends TestCase
 {

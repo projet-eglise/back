@@ -2,7 +2,7 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Logs;
 
-use Tests\TestCase;
+use Tests\Feature\Logs\TestCase;
 
 class UnseenTopicTest extends TestCase
 {

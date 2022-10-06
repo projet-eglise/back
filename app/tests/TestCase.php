@@ -12,10 +12,10 @@ abstract class TestCase extends BaseTestCase
     use RefreshDatabase;
     use CreatesApplication;
 
-    protected function setUp(): void
+    protected function setUp(array $class = ['Database\\Seeders\\DatabaseSeeder']): void
     {
         parent::setUp();
-        $this->seed();
+        $this->seed($class);
     }
 
     protected function adminToken(string $email = "timothe@projet-eglise.fr", string $password = "password"): string

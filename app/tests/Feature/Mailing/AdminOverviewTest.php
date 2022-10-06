@@ -3,7 +3,7 @@
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Mailing;
 
 use App\Models\Mailing\MailHistory as ModelMailHistory;
-use Tests\TestCase;
+use Tests\Feature\Mailing\TestCase;
 
 class AdminOverviewTest extends TestCase
 {

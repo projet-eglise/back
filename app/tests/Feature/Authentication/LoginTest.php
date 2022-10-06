@@ -2,9 +2,9 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class LoginTest extends TestCase
+class LoginTest extends AuthenticationTestCase
 {
     /** @test */
     public function login_with_a_valid_password()

@@ -3,7 +3,7 @@
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Logs;
 
 use App\Models\Logs\Trace;
-use Tests\TestCase;
+use Tests\Feature\Logs\TestCase;
 
 class TracesAddingTest extends TestCase
 {

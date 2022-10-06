@@ -43,7 +43,7 @@ class CreateController extends Command
         // Check empty name
         $name = end($splitedName);
         if ($name === '')
-            return $this->stopCommandHere("Invalid namespace");
+            return $this->stopCommandHere("Invalid name");
 
         // Checks if the controller exists in the Laravel files
         $appPath = "app/Http/Controllers/$namespace/{$name}Controller.php";
@@ -117,7 +117,7 @@ class CreateController extends Command
         if(!is_dir("src/Infrastructure/$namespace/Controllers")) mkdir("src/Infrastructure/$namespace/Controllers");
         touch("src/Infrastructure/$namespace/Controllers/{$controller}Controller.php");
 
-        $content = file_get_contents("app/Console/Commands/CreateController/DomainController.php");
+        $content = file_get_contents("app/Console/Commands/CreateController/DomainController.php.example");
         $content = str_replace('MyNamespace', $namespace, $content);
         $content = str_replace('MyControllerName', $controller, $content);
 
@@ -136,7 +136,7 @@ class CreateController extends Command
         if(!is_dir("app/Http/Controllers/$namespace")) mkdir("app/Http/Controllers/$namespace");
         touch("app/Http/Controllers/$namespace/{$controller}Controller.php");
 
-        $content = file_get_contents("app/Console/Commands/CreateController/LaravelController.php");
+        $content = file_get_contents("app/Console/Commands/CreateController/LaravelController.php.example");
         $content = str_replace('MyNamespace', $namespace, $content);
         $content = str_replace('MyControllerName', $controller, $content);
 
@@ -153,7 +153,7 @@ class CreateController extends Command
         $namespaceLowerCase = $this->fromCamelcaseToSnakecase($namespace);
         touch("routes/api/$namespaceLowerCase.php");
 
-        $content = file_get_contents("app/Console/Commands/CreateController/route.php");
+        $content = file_get_contents("app/Console/Commands/CreateController/route.php.example");
         $content = str_replace('MyNamespace', $namespace, $content);
         $content = str_replace('MyControllerName', $controller, $content);
 
@@ -169,7 +169,7 @@ class CreateController extends Command
         $lines = file("routes/api/$namespaceLowerCase.php");
         $contentBelow = array_splice($lines, 3, count($lines), "use App\Http\Controllers\{$namespace}\{$controller}Controller;"); 
         
-        $start = file_get_contents("app/Console/Commands/CreateController/imports.php");
+        $start = file_get_contents("app/Console/Commands/CreateController/imports.php.example");
         $start = str_replace('MyNamespace', $namespace, $start);
         $start = str_replace('MyControllerName', $controller, $start);
 

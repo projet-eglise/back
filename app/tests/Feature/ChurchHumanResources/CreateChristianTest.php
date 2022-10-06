@@ -4,7 +4,7 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\ChurchHumanRessources;
 
 use App\Models\ChurchHumanRessources\Christian;
 use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
+use Tests\Feature\ChurchHumanResources\TestCase;
 
 class CreateChristianTest extends TestCase
 {

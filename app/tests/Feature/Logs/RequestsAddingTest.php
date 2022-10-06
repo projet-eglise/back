@@ -4,7 +4,7 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\Logs;
 
 use App\Models\Logs\ErrorTopic;
 use App\Models\Logs\Request;
-use Tests\TestCase;
+use Tests\Feature\Logs\TestCase;
 
 class RequestsAddingTest extends TestCase
 {

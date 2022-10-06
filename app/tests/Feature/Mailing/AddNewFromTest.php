@@ -14,7 +14,7 @@ use Src\Domain\Shared\EmptyEmail;
 use Src\Infrastructure\Mailing\Params\SendPasswordRequestParams;
 use Src\Infrastructure\Mailing\Repositories\EloquentMailHistoryRepository;
 use Src\Infrastructure\Mailing\Repositories\SendInBlueMailRepository;
-use Tests\TestCase;
+use Tests\Feature\Mailing\TestCase;
 
 class AddNewFromTest extends TestCase
 {

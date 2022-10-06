@@ -2,9 +2,9 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class MiddlewareTest extends TestCase
+class MiddlewareTest extends AuthenticationTestCase
 {
     /** @test */
     public function user_route_with_user_credentials()

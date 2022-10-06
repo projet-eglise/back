@@ -3,9 +3,9 @@
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
 use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class SigninTest extends TestCase
+class SigninTest extends AuthenticationTestCase
 {
     /** @test */
     public function user_signin()

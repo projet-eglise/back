@@ -2,10 +2,9 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Src\Domain\Authentication\JwtToken;
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class UpdatePasswordTest extends TestCase
+class UpdatePasswordTest extends AuthenticationTestCase
 {
     /** @test */
     public function change_password()

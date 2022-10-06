@@ -3,7 +3,7 @@
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Logs;
 
 use App\Models\Logs\ErrorTopic;
-use Tests\TestCase;
+use Tests\Feature\Logs\TestCase;
 
 class UnknownTopicsOverviewTest extends TestCase
 {

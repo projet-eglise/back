@@ -5,11 +5,10 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 use App\Models\Authentication\PasswordRequest;
 use App\Models\Mailing\MailHistory;
 use Illuminate\Support\Str;
-use Src\Domain\Authentication\JwtToken;
 use Src\Domain\Shared\Timestamp;
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class RequestNewPasswordTest extends TestCase
+class RequestNewPasswordTest extends AuthenticationTestCase
 {
     /** @test */
     public function error_when_entering_an_invalid_email()

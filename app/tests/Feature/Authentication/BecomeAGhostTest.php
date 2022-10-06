@@ -2,9 +2,9 @@
 
 namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 
-use Tests\TestCase;
+use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class BecomeAGhostTest extends TestCase
+class BecomeAGhostTest extends AuthenticationTestCase
 {
     /** @test */
     public function become_a_ghost_with_valid_email()
