@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Logs\TopicWithRequestsAndTracesController;
 use App\Http\Controllers\Logs\AllKnownTopicsController;
 use App\Http\Controllers\Logs\AllRequestsController;
 use App\Http\Controllers\Logs\AllRequestsForUserController;
@@ -26,4 +27,6 @@ Route::middleware(['auth.admin'])->group(function () {
     
     Route::get('topics/known', AllKnownTopicsController::class);
     Route::get('topics/unknown', AllUnknownTopicsController::class);
+
+    Route::get('error-with-requests-and-traces/{uuid}', TopicWithRequestsAndTracesController::class);
 });

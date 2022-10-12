@@ -137,7 +137,7 @@ class Kernel extends HttpKernel
                 'code' => $th->getCode() ?? 0,
                 'message' => $th->getMessage(),
                 'error' => 'Error when save log for error ' . $errorTopic->uuid ?? '{unknow error}',
-                'file' => $th->getFile() ?? '',
+                'file' => str_replace('/var/www/', '', $th->getFile() ?? ''),
                 'line' => $th->getLine() ?? '',
                 'known' => false,
                 'seen' => false,

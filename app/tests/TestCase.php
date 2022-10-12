@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Src\Domain\Authentication\JwtToken;
 
 define('LARAVEL_START', microtime(true));
 

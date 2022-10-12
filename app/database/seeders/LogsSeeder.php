@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Logs\ErrorTopic;
 use App\Models\Logs\Request;
+use App\Models\Logs\Trace;
 use Illuminate\Database\Seeder;
 
 class LogsSeeder extends Seeder
@@ -50,6 +51,13 @@ class LogsSeeder extends Seeder
             'method' => 'POST',
             'url' => 'admin/login',
             'params' => '{ "email": "user@projet-eglise.fr", "password": "********" }',
+            'error_topic_id' => 1,
+        ]);
+        Trace::create([
+            'id' => 1,
+            'file' => 'hello_world.php',
+            'line' => 1,
+            'function' => 'hello_world',
             'error_topic_id' => 1,
         ]);
 
