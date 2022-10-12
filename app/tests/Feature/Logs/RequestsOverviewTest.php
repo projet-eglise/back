@@ -33,6 +33,7 @@ class RequestsOverviewTest extends TestCase
                         'route',
                         'params',
                         'response',
+                        'error_uuid'
                     ]
                 ]
             ]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Logs;
 
+use App\Models\Logs\ErrorTopic;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Request extends JsonResource
@@ -14,6 +15,9 @@ class Request extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->error_topic_id !== null)
+            $errorTopicUuid = ErrorTopic::find($this->error_topic_id)->uuid;
+
         return [
             'code' => $this->code,
             'message' => $this->message,
@@ -30,6 +34,7 @@ class Request extends JsonResource
             'route' => $this->url,
             'params' => $this->params,
             'response' => $this->response,
+            'error_uuid' => $errorTopicUuid ?? null,
         ];
     }
 }
