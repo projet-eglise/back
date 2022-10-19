@@ -2,20 +2,15 @@
 
 namespace Src\Domain\Authentication\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException;
+use Src\Domain\Shared\Exceptions\HttpException\InternalServerErrorException;
 
 /**
  * Invalid recipient.
  */
-class NotRecipientException extends HttpException
+class NotRecipientException extends InternalServerErrorException
 {
     public function message(): string
     {
         return "Not instance of Recipient";
-    }
-
-    public function code(): int
-    {
-        return 500;
     }
 }

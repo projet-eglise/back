@@ -2,20 +2,15 @@
 
 namespace Src\Domain\Authentication\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException;
+use Src\Domain\Shared\Exceptions\HttpException\InternalServerErrorException;
 
 /**
  * Invalid parameters entered.
  */
-class InvalidParamsException extends HttpException
+class InvalidParamsException extends InternalServerErrorException
 {
     public function message(): string
     {
-        return "Invalid params.";
-    }
-
-    public function code(): int
-    {
-        return 500;
+        return "Invalid params";
     }
 }

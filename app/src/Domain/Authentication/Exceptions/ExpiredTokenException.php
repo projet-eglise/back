@@ -2,20 +2,15 @@
 
 namespace Src\Domain\Authentication\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException;
+use Src\Domain\Shared\Exceptions\HttpException\GoneException;
 
 /**
  * Exception lifted when the token is expired.
  */
-class ExpiredTokenException extends HttpException
+class ExpiredTokenException extends GoneException
 {
     public function message(): string
     {
         return "Expirated request";
-    }
-
-    public function code(): int
-    {
-        return 410;
     }
 }

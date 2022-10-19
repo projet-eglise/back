@@ -33,7 +33,7 @@ class AdminLoginTest extends AuthenticationTestCase
             ->assertStatus(403)
             ->assertJson([
                 'code' => 403,
-                'message' => "You are not an administrator.",
+                'message' => "You are not an administrator",
             ]);
     }
 }

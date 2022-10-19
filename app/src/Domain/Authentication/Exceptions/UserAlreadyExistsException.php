@@ -2,17 +2,12 @@
 
 namespace Src\Domain\Authentication\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException;
+use Src\Domain\Shared\Exceptions\HttpException\ConflictException;
 
-class UserAlreadyExistsException extends HttpException
+class UserAlreadyExistsException extends ConflictException
 {
     public function message(): string
     {
         return "User already exists";
-    }
-
-    public function code(): int
-    {
-        return 409;
     }
 }

@@ -28,7 +28,7 @@ class TopicsCreationTest extends TestCase
 
         $last = ErrorTopic::all()->last();
         $this->assertEquals(403, $last->code);
-        $this->assertEquals('You are not an administrator.', $last->message);
+        $this->assertEquals('You are not an administrator', $last->message);
     }
 
     /** @test */

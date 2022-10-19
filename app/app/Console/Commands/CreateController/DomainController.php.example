@@ -6,7 +6,7 @@ namespace Src\Infrastructure\MyNamespace\Controllers;
 
 use Illuminate\Http\Request;
 use Src\Infrastructure\Shared\Interfaces\Controller;
-use Src\Domain\Shared\Exceptions\NotImplementedException;
+use Src\Domain\Shared\Exceptions\HttpException\NotImplementedException;
 
 final class MyControllerNameController implements Controller
 {

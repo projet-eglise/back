@@ -2,20 +2,15 @@
 
 namespace Src\Domain\Authentication\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException;
+use Src\Domain\Shared\Exceptions\HttpException\UnauthorizedException;
 
 /**
  * Exception raised if the password does not contain the right characters.
  */
-class PasswordDoesntContainRequiredCharactersException extends HttpException
+class PasswordDoesntContainRequiredCharactersException extends UnauthorizedException
 {
     public function message(): string
     {
         return "The password does not contain the required characters.";
-    }
-
-    public function code(): int
-    {
-        return 401;
     }
 }

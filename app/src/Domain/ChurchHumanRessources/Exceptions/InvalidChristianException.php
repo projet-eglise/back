@@ -2,17 +2,12 @@
 
 namespace Src\Domain\ChurchHumanRessources\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException;
+use Src\Domain\Shared\Exceptions\HttpException\UnprocessableEntityException;
 
-class InvalidChristianException extends HttpException
+class InvalidChristianException extends UnprocessableEntityException
 {
     public function message(): string
     {
         return "Invalid christian";
-    }
-
-    public function code(): int
-    {
-        return 422;
     }
 }
