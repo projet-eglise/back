@@ -5,7 +5,7 @@ namespace App\BrandPanel\Modules\Store\Tests\Feature\Authentication;
 use Src\Domain\Authentication\JwtToken;
 use Tests\Feature\Authentication\AuthenticationTestCase;
 
-class TokenLoginTest extends AuthenticationTestCase
+class TokenContentTest extends AuthenticationTestCase
 {
     /** @test */
     public function admin_token_content()

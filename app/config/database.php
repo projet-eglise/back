@@ -71,6 +71,8 @@ return [
             'database' => env('DB_TEST_DATABASE', 'forge'),
             'username' => env('DB_TEST_USERNAME', 'forge'),
             'password' => env('DB_TEST_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
         ],
 
         'pgsql' => [
