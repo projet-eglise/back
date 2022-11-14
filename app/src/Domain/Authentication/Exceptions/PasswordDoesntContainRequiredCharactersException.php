@@ -2,12 +2,12 @@
 
 namespace Src\Domain\Authentication\Exceptions;
 
-use Src\Domain\Shared\Exceptions\HttpException\UnauthorizedException;
+use Src\Domain\Shared\Exceptions\HttpException\UnprocessableEntityException;
 
 /**
  * Exception raised if the password does not contain the right characters.
  */
-class PasswordDoesntContainRequiredCharactersException extends UnauthorizedException
+class PasswordDoesntContainRequiredCharactersException extends UnprocessableEntityException
 {
     public function message(): string
     {
